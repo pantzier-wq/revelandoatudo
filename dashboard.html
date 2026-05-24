@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - Detecta A.I Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Global styles -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    
+      ttq.load('D73D4F3C77UCBSL4OP3G');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+</head>
+<body>
+    
+    <!-- App Navbar -->
+    <nav class="app-nav">
+        <div class="nav-container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div class="logo">Detecta<span class="hl">A.I</span></div>
+            <div class="user-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <!-- user avatar and greeting removed as requested -->
+                <button onclick="logout()" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.2); color: #94a3b8; background: transparent; border-radius: 6px; cursor: pointer;">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-layout">
+        <!-- Main Content -->
+        <main class="app-main">
+            
+            <!-- STATE 1: MAIN DASHBOARD -->
+            <div id="dashMainView">
+                <!-- Premium Greeting -->
+                <div class="welcome-banner hidden" id="dashWelcomeBanner">
+                    <p class="greeting-sub gold-text glow-gold">Área de Membros VIP</p>
+                    <h1 class="premium-greeting">Bem vindo(a), <span class="gold-text glow-gold" id="userNameHeaderPlaceholder">Usuário</span></h1>
+                    <p class="greeting-desc">Seus algoritmos forenses estão prontos para processamento.</p>
+                </div>
+
+                <!-- New Analysis Section -->
+                <div class="dash-section">
+                    <div class="section-title">
+                        <h2>Nova Análise</h2>
+                        <p>Envie uma conversa do WhatsApp (.txt) para análise com I.A.</p>
+                    </div>
+                    
+                    <div class="clean-box clickable" id="dashboardUploadZone" onclick="checkUploadLimitAndOpen()">
+                        <div class="svg-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        </div>
+                        <h3>Arraste o arquivo ou clique para selecionar</h3>
+                        <p class="sub">Aceita .txt exportado do WhatsApp</p>
+                        <input type="file" id="dashFileInput" accept=".txt,.zip,.csv" hidden>
+                        
+                        <div id="uploadRestrictionMsg" class="hidden error-msg" style="margin-top: 1.5rem; text-align: left;">
+                        ⚠️ Limite Atingido: Seus créditos de análise para esta conta/aparelho foram finalizados. Em breve, implementaremos novas tecnologias forenses no Detecta A.I para garantir a melhor experiência de usuário.
+                        </div>
+                    </div>
+
+                    <!-- Mini Tutorial Step-by-Step -->
+                    <div class="tutorial-box" style="margin-top: 1rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem; text-align: left;">
+                        <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1rem; color: #a1a1aa; display: flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> 
+                            Passo a passo para exportar:
+                        </h4>
+                        <ol style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0; padding-left: 1.2rem;">
+                            <li>Abra a conversa suspeita no seu WhatsApp.</li>
+                            <li>Toque no nome do contato no topo (ou nos <strong>três pontinhos</strong> no Android).</li>
+                            <li>Role até o final e selecione <strong>"Exportar Conversa"</strong>.</li>
+                            <li>Escolha a opção <strong>"Sem arquivo de mídia"</strong>.</li>
+                            <li>Clique no quadro acima e envie o arquivo <code>.txt</code> ou <code>.zip</code> que foi salvo.</li>
+                        </ol>
+                    </div>
+
+                    <!-- ── Credit Card ── -->
+                    <div id="creditCard" class="credit-card-widget" style="margin-top:1.25rem;">
+                        <div class="credit-card-left">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <div>
+                                <div class="credit-card-title">Análises disponíveis</div>
+                                <div class="credit-card-count" id="creditCount">1 crédito restante</div>
+                            </div>
+                        </div>
+                        <div class="credit-card-status" id="creditStatus"></div>
+                    </div>
+
+                    <!-- ── Upload blocked (0 credits) ── -->
+                    <div id="uploadCreditBlock" class="upload-block-msg hidden">
+                        <div class="upload-block-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <div class="upload-block-text">
+                            <strong>Você não possui créditos disponíveis para iniciar uma nova análise.</strong>
+                        </div>
+                        <button class="cta-btn-sm" onclick="openExtrasPanel()" style="white-space:nowrap; flex-shrink:0; padding: 0.55rem 1rem; font-size:0.85rem;">
+                            Adicionar créditos
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Access History Shortcut -->
+                <div class="dash-section mt-4">
+                    <div class="section-title">
+                        <h2>Histórico Forense</h2>
+                        <p>Acesse laudos salvos de análises anteriores.</p>
+                    </div>
+                    
+                    <div class="clean-box clickable" id="openHistoryBtn" onclick="toggleView('history')" style="display: flex; align-items: center; gap: 1rem; text-align: left;">
+                        <div class="svg-icon" style="margin: 0; background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0;">Abrir Meus Relatórios</h3>
+                            <p class="sub" id="historyCounterText" style="margin: 0;">Você possui 0 relatórios salvos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Main View -->
+
+
+            <!-- Preloader Modal (Hidden) -->
+            <div class="dash-modal hidden" id="dashAnalyzeModal">
+                <div class="dash-modal-content glass">
+                    <div class="loading-spinner"></div>
+                    <h3 class="pulsing-text">Cruzando Dados Psicológicos...</h3>
+                    <p id="dashStatusMsg" style="margin-top: 1rem; color: #cbd5e1;">Lendo linhas de texto: <span id="lineCounter">0</span> identificadas</p>
+                    <div class="progress-bar-bg" style="margin-top: 1.5rem;"><div class="progress-fill glow-pulse" id="dashProgressBar"></div></div>
+                </div>
+            </div>
+
+            <!-- STATE 2: REPORTS HISTORY LIST -->
+            <div id="dashHistoryView" class="hidden">
+                <button class="cta-btn-sm inline mb-4" onclick="toggleView('main')" style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg> Voltar para o Dashboard
+                </button>
+                
+                <div class="section-title">
+                    <h2>Seus Relatórios</h2>
+                    <p>Histórico salvo na memória local da sua conta VIP.</p>
+                </div>
+                
+                <!-- Displayed when No Reports -->
+                <div class="clean-box empty-state" id="emptyReportsState">
+                    <p class="sub" id="emptyReportsText">Nenhuma análise ainda. Use o dashboard para processar uma conversa.</p>
+                </div>
+
+                <!-- Past Reports List injected here -->
+                <div id="reportsHistoryList" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;"></div>
+            </div>
+
+            <!-- STATE 3: SINGLE REPORT RENDER VIEW -->
+            <div id="dashReportView" class="hidden">
+                <button class="cta-btn-sm inline mb-4" onclick="toggleView('history')" style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg> Voltar para Todos os Relatórios
+                </button>
+
+                <!-- The Generated Report Area -->
+                <div class="report-wrapper" id="reportWrapper">
+                    <div class="report-header danger-glass">
+                        <h2 class="alert-title"><span class="alert-siren">🚨</span> Relatório de Inteligência Gerado</h2>
+                        <p>Documento gerado em base restrita. Uso pessoal.</p>
+                    </div>
+                    
+                    <div class="report-body glass">
+                        <!-- Dynamic Overview -->
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h4>Risco Detectado</h4>
+                                <div class="metric-value font-red" id="repRiskScore">87%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Mensagens Lidas</h4>
+                                <div class="metric-value" id="repTotalMsgs">1,402</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Fator Dominante</h4>
+                                <div class="metric-value" id="repDominantFactor">Evasividade</div>
+                            </div>
+                        </div>
+
+                        <hr class="dash-divider">
+                        
+                        <!-- Section 1: Gaslighting -->
+                        <h3>1. Sinais de Manipulação (Gaslighting)</h3>
+                        <p class="section-desc">Padrões onde a pessoa tenta inverter a culpa ou fazer você duvidar do que está vendo.</p>
+                        <div class="alert-box" id="gaslightingResults">
+                            Nenhum padrão detectado (Aguardando análise).
+                        </div>
+
+                        <!-- Section 2: Gottman 4 Horsemen -->
+                        <h3 class="mt-4">2. Sinais Críticos de Afastamento</h3>
+                        <p class="section-desc">Busca por padrões de relacionamento perigosos: Críticas duras, Desprezo e Furo Evasivo.</p>
+                        <ul class="gottman-list" id="gottmanResults">
+                            <!-- Populated by JS -->
+                        </ul>
+
+                        <!-- Summary -->
+                        <div class="conclusion-box danger-glass mt-4">
+                            <h4>Veredito Analítico</h4>
+                            <p id="repVeredict">Analisando...</p>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Single Report View -->
+
+        </main>
+
+        <!-- ══════════════════════════════════════════
+             EXTRAS TOGGLE BUTTON
+        ══════════════════════════════════════════ -->
+        <div class="extras-toggle-wrapper" id="extrasToggleWrapper">
+            <button id="extrasToggleBtn" class="extras-toggle-btn" onclick="openExtrasPanel()">
+                <div class="extras-btn-left">
+                    <div class="extras-btn-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="extras-btn-title">Ver ferramentas extras</div>
+                        <div class="extras-btn-sub">Adicione novas análises ou desbloqueie módulos avançados.</div>
+                    </div>
+                </div>
+                <svg class="extras-chevron" id="extrasChevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             EXTRAS PANEL (hidden by default)
+        ══════════════════════════════════════════ -->
+        <section class="app-store extras-panel hidden" id="extrasPanel">
+
+            <!-- Credit purchase cards -->
+            <div class="section-title text-center" style="margin-bottom:2rem;">
+                <h2 style="display:flex; align-items:center; justify-content:center; gap:0.6rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent); flex-shrink:0;">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    Adicionar Análises
+                </h2>
+                <p style="font-size:0.95rem; color:#94a3b8;">Adquira créditos extras para continuar analisando conversas com o Detecta A.I.</p>
+            </div>
+
+            <div class="store-grid credit-cards-grid">
+
+                <!-- +1 análise -->
+                <div class="store-item glass credit-purchase-card">
+                    <div class="credit-purchase-badge">+1 análise</div>
+                    <div class="item-head" style="margin-top:0.5rem;">
+                        <span class="icon" style="font-size:1.1rem;">🔍</span>
+                        <h4>+1 Análise Extra</h4>
+                    </div>
+                    <p>Libere mais uma análise completa de conversa para continuar usando o Detecta A.I.</p>
+                    <button class="cta-btn-sm btn-full mt-2 credit-buy-btn"
+                            data-checkout="CHECKOUT_1_ANALISE_URL"
+                            onclick="gotoCheckout(this)">
+                        ADICIONAR 1 ANÁLISE
+                    </button>
+                </div>
+
+                <!-- +2 análises -->
+                <div class="store-item glass credit-purchase-card">
+                    <div class="credit-purchase-badge badge-2">+2 análises</div>
+                    <div class="item-head" style="margin-top:0.5rem;">
+                        <span class="icon" style="font-size:1.1rem;">⚡</span>
+                        <h4>+2 Análises Extras</h4>
+                    </div>
+                    <p>Tenha mais flexibilidade para analisar outras conversas ou repetir uma análise com novos dados.</p>
+                    <button class="cta-btn-sm btn-full mt-2 credit-buy-btn"
+                            data-checkout="CHECKOUT_2_ANALISES_URL"
+                            onclick="gotoCheckout(this)">
+                        ADICIONAR 2 ANÁLISES
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.06); margin: 2.5rem 0;"></div>
+
+            <!-- Legacy tools header -->
+            <div class="section-title text-center" style="margin-bottom: 2.5rem;">
+                <h2 style="display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="title-cart-icon" style="color: var(--accent); flex-shrink: 0; width: 24px; height: 24px;">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Ferramentas Analíticas
+                </h2>
+                <p style="font-size: 0.95rem; color: #94a3b8;">Desbloqueie algoritmos forenses para aprofundar sua análise de Padrões Incomuns.</p>
+            </div>
+
+            <div class="store-grid">
+
+                <div class="store-item glass border-green coming-soon" id="bump-vip">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">⚡</span>
+                        <h4>Acesso VIP Ilimitado</h4>
+                    </div>
+                    <p>Desbloqueie análises infinitas. Pare de tentar adivinhar e faça laudos de quantos parceiros ou épocas quiser.</p>
+                    <div class="price">???,??</div>
+                    <button class="cta-btn-sm btn-full mt-2" onclick="simulatePurchase(this, 'detecta_vip')">Adquirir Essa Oferta</button>
+                </div>
+
+                <div class="store-item glass locked coming-soon" id="bump-apego">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">🧠</span>
+                        <h4>Relatório: Apego Evitativo</h4>
+                    </div>
+                    <p>Identifica mensagens que criam ansiedade proposital e recuos táticos (puxa-empurra).</p>
+                    <div class="price" style="font-size: 0.9rem; color: #f59e0b; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">???,??</div>
+                </div>
+
+                <div class="store-item glass locked coming-soon" id="bump-micro">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">🔪</span>
+                        <h4>Mapa de Micro-Agressões</h4>
+                    </div>
+                    <p>Analisa falas passivo-agressivas e sarcasmo oculto (Modelo Paul Ekman).</p>
+                    <div class="price" style="font-size: 0.9rem; color: #f59e0b; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">???,??</div>
+                </div>
+
+                <div class="store-item glass locked coming-soon" id="bump-ocultos">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">🔍</span>
+                        <h4>Contatos Ocultos</h4>
+                    </div>
+                    <p>A I.A detecta se a conversa tem vazamento de informações para um terceiro na relação.</p>
+                    <div class="price" style="font-size: 0.9rem; color: #f59e0b; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">???,??</div>
+                </div>
+
+                <div class="store-item glass locked coming-soon" id="bump-horarios">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">🕒</span>
+                        <h4>Horários Tóxicos</h4>
+                    </div>
+                    <p>Escaneia ausências e vácuos estratégicos apenas durante o fim de semana.</p>
+                    <div class="price" style="font-size: 0.9rem; color: #f59e0b; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">???,??</div>
+                </div>
+
+                <div class="store-item glass locked coming-soon" id="bump-mentiras">
+                    <div class="lock-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lock-icon-svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-head">
+                        <span class="icon">🤖</span>
+                        <h4>Respostas Programadas</h4>
+                    </div>
+                    <p>Verifica se a pessoa envia "desculpas prontas" padronizadas como se estivesse mentindo muito.</p>
+                    <div class="price" style="font-size: 0.9rem; color: #f59e0b; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem;">???,??</div>
+                </div>
+
+            </div>
+
+            <!-- GOLD PASS -->
+            <div class="golden-pass mt-4 coming-soon" id="bump-all">
+                <div class="gold-pass-header">
+                    <h3><span class="gold-pass-crown">👑</span> Acesso Master: Desbloqueio Total</h3>
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #f59e0b; margin: 0;">MELHOR CUSTO-BENEFÍCIO</span>
+                </div>
+                <p>Nós sabemos que a dúvida destrói por dentro. Por que ficar comprando pequenos módulos quando você pode usar o <strong>Arsenal Forense Inteiro</strong> a seu favor agora mesmo?</p>
+                <p>Com esse passe vitalício, você leva o Ilimitado e <strong>ABSOLUTAMENTE TODOS</strong> os 5 módulos de análise de uma só vez (sem pagar assinaturas). Pare de tentar adivinhar e tenha o raio-x completo.</p>
+                
+                <div class="gold-pass-features">
+                    <h4>O que você destrava imediatamente:</h4>
+                    <ul>
+                        <li><span class="check">✔️</span> <strong>Análises Infinitas:</strong> Sem limite diário.</li>
+                        <li><span class="check">✔️</span> <strong>Apego Evitativo:</strong> Detecta gatilhos de ansiedade.</li>
+                        <li><span class="check">✔️</span> <strong>Micro-Agressões:</strong> Exposição de falas passivo-agressivas.</li>
+                        <li><span class="check">✔️</span> <strong>Contatos Ocultos:</strong> Rastreio vazamento de dados.</li>
+                        <li><span class="check">✔️</span> <strong>Horários Tóxicos:</strong> Escaneia vácuos repetitivos.</li>
+                        <li><span class="check">✔️</span> <strong>Respostas Prontas:</strong> Caçador de mentiras.</li>
+                    </ul>
+                    <div class="disclaimer">
+                        * Ferramentas exclusivas do Passe Master.
+                    </div>
+                </div>
+                <div class="gold-price-box">
+                    <span class="old-price">De ???,??</span>
+                    
+                    <div class="price-row">
+                        <span class="currency-prefix">por</span> 
+                        <span class="currency-symbol"></span> 
+                        <span class="gold-text">???,??</span>
+                    </div>
+                    
+                    <div class="payment-terms">/ uma única vez</div>
+                </div>
+                <button class="cta-btn max-btn mt-2" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #fff; border: none; font-weight: 800; box-shadow: 0 5px 25px rgba(245, 158, 11, 0.4);" onclick="simulatePurchase(this, 'detecta_ob_all')">QUERO LIGAR TODOS OS MÓDULOS</button>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Script that handles the parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="emojis.js"></script>
+    <script src="analyzer.js"></script>
+    <script>
+        /* ── Extras panel toggle ── */
+        function openExtrasPanel() {
+            const panel   = document.getElementById('extrasPanel');
+            const chevron = document.getElementById('extrasChevron');
+            const btn     = document.getElementById('extrasToggleBtn');
+
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+                btn.classList.add('active');
+                // scroll to panel smoothly
+                setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+            } else {
+                panel.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+                btn.classList.remove('active');
+            }
+        }
+
+        /* ── Checkout redirect (easy to update URLs later) ── */
+        function gotoCheckout(btn) {
+            const url = btn.getAttribute('data-checkout');
+            if (!url || url.startsWith('CHECKOUT_')) {
+                alert('Link de checkout em breve. Aguarde a ativação.');
+                return;
+            }
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

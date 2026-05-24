@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detecta A.I — Análise Comportamental Confidencial</title>
+    <meta name="description" content="Sistema de análise comportamental por IA. Identifica padrões emocionais invisíveis em conversas e revela a verdade.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- TikTok Pixel -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+      var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+      ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        ttq.load('D73D4F3C77UCBSL4OP3G');
+        ttq.page();
+    }(window, document, 'ttq');
+    </script>
+</head>
+<body>
+
+    <!-- PARTICLES -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- SOCIAL TOAST -->
+    <div id="social-toast" class="social-toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-text">
+            <strong id="toast-name">Juliana</strong> <span id="toast-action">acabou de desbloquear o relatório.</span>
+            <div class="toast-time">Agora mesmo</div>
+        </div>
+    </div>
+
+    <!-- EXIT POPUP -->
+    <div id="exit-popup" class="exit-overlay hidden">
+        <div class="exit-box">
+            <h2>Vai ficar sem saber a verdade?</h2>
+            <p>Você chegou longe demais para sair agora.<br>O relatório está quase pronto.</p>
+            <button class="cta-btn pulse-glow" onclick="closeExit()">CONTINUAR A ANÁLISE</button>
+            <button class="exit-dismiss" onclick="closeExit()">sair mesmo assim</button>
+        </div>
+    </div>
+
+    <!-- RETURN POPUP -->
+    <div id="return-popup" class="exit-overlay hidden">
+        <div class="exit-box">
+            <div style="font-size:2.5rem; margin-bottom:0.75rem;">😰</div>
+            <h2>Você chegou longe demais para sair agora.</h2>
+            <p>Seu relatório ficará disponível <strong style="color:#fff;">apenas nesta sessão</strong>. Se sair, precisará recomeçar.</p>
+            <button class="cta-btn pulse-glow" onclick="closeReturn()">VER O RELATÓRIO AGORA</button>
+        </div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo">Detecta<span class="hl">A.I</span></div>
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span>SISTEMA ATIVO</span>
+            </div>
+            <div class="online-counter-header" onclick="scrollToExperience(); return false;">
+                <div class="counter-dot"></div>
+                <span id="online-num">74</span> analisando agora
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== 1. HERO ===== -->
+    <section class="hero">
+        <div class="container" style="text-align:center;">
+            <h1>E se a verdade do seu relacionamento<br><span class="text-gradient">já estivesse escondida nas mensagens?</span></h1>
+            <p class="hero-sub">Antes de uma mentira ser confessada, o comportamento muda. Respostas frias, distância repentina e evasivas deixam rastros que a maioria ignora até ser tarde demais.</p>
+            <a href="#experience" class="cta-btn pulse-glow" onclick="scrollToExperience(); return false;">INICIAR DIAGNÓSTICO EMOCIONAL ➔</a>
+            <!-- COMO FUNCIONA (HOW IT WORKS) -->
+            <div class="how-it-works scroll-reveal">
+                <p class="section-tag" style="margin-bottom:1.5rem;">⚙️ COMO FUNCIONA O DIAGNÓSTICO</p>
+                <div class="how-grid">
+                    <div class="how-card glass">
+                        <span class="how-num">1</span>
+                        <div class="how-icon">🔐</div>
+                        <h4>Identificação</h4>
+                        <p>Insira dados básicos do caso para calibrar os parâmetros.</p>
+                    </div>
+                    <div class="how-card glass">
+                        <span class="how-num">2</span>
+                        <div class="how-icon">🧠</div>
+                        <h4>Diagnóstico</h4>
+                        <p>Responda a perguntas cruciais baseadas em psicologia comportamental.</p>
+                    </div>
+                    <div class="how-card glass">
+                        <span class="how-num">3</span>
+                        <div class="how-icon">💬</div>
+                        <h4>Cruzamento</h4>
+                        <p>Cruze os dados com o tom de voz e evasivas das conversas.</p>
+                    </div>
+                    <div class="how-card glass">
+                        <span class="how-num">4</span>
+                        <div class="how-icon">🔍</div>
+                        <h4>Revelação</h4>
+                        <p>Acesse o nível de inconsistência emocional e seu relatório detalhado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO DE ESTATÍSTICAS ANIMADAS (VERTICAIS GIGANTES) ===== -->
+    <section class="animated-stats-section">
+        <div class="container">
+            <div class="large-stats-container">
+                <div class="large-stat-card scroll-reveal">
+                    <span class="large-stat-num" id="count-analyses" data-target="2400">+0</span>
+                    <span class="large-stat-label">análises comportamentais realizadas esta semana</span>
+                </div>
+                <div class="large-stat-card scroll-reveal">
+                    <span class="large-stat-num" id="pct-confirm" data-target="78">0%</span>
+                    <span class="large-stat-label">dos usuários confirmaram suas suspeitas após o relatório</span>
+                </div>
+                <div class="large-stat-card scroll-reveal">
+                    <span class="large-stat-num">- 2min</span>
+                    <span class="large-stat-label">tempo médio para o processamento completo do resultado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 2. DEMO VISUAL ===== -->
+    <section class="demo-section scroll-reveal">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">📡 DEMONSTRAÇÃO AO VIVO</p>
+                <h2>Veja a análise em tempo real</h2>
+            </div>
+            <div id="phone-frame" class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="wa-header">
+                    <div class="wa-avatar">👤</div>
+                    <div><p class="wa-name">Ele ❤️</p><p class="wa-status">visto por último hoje às 14:32</p></div>
+                </div>
+                <div class="wa-chat">
+                    <div class="chat-msg msg-out">Oi amor, senti sua falta hoje 💕</div>
+                    <div class="chat-msg msg-in">tudo</div>
+                    <div class="chat-msg msg-out">O que aconteceu? Tá tudo bem?</div>
+                    <div class="chat-msg msg-in">tô cansado</div>
+                    <div class="chat-msg msg-out">Posso ligar?</div>
+                    <div class="chat-msg msg-in">agora não dá</div>
+                </div>
+                <div class="demo-btn-area" id="demo-btn-area">
+                    <div class="demo-btn-pill">Analisar conversa</div>
+                </div>
+                <!-- LOADING OVERLAY -->
+                <div id="demo-load" class="demo-overlay">
+                    <div class="radar-anim"><div class="radar-core"></div><div class="radar-ring"></div></div>
+                    <p style="color:var(--accent); font-size:0.78rem; font-weight:600; letter-spacing:1px;">Detectando padrões…</p>
+                </div>
+                <!-- RESULT OVERLAY -->
+                <div id="demo-res" class="demo-overlay">
+                    <div style="width:42px; height:42px; border-radius:50%; background:rgba(59,130,246,0.12); border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:0.6rem;">🔍</div>
+                    <p style="color:var(--accent); font-size:0.72rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:1rem; font-weight:700;">Sinais encontrados</p>
+                    <div style="display:flex; flex-direction:column; gap:0.5rem; width:85%;">
+                        <div class="demo-result-item"><span style="color:var(--red); font-size:0.95rem;">⚠</span> Mudança abrupta no tom</div>
+                        <div class="demo-result-item"><span style="color:var(--red); font-size:0.95rem;">⚠</span> Respostas evasivas detectadas</div>
+                        <div class="demo-result-item"><span style="color:var(--red); font-size:0.95rem;">⚠</span> Distanciamento emocional</div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-support">
+                <p>O Detecta A.I não lê só palavras. Ele identifica o padrão <em>por trás</em> das palavras — frieza, evasão, distanciamento.</p>
+                <a href="#experience" class="cta-btn pulse-glow" onclick="scrollToExperience(); return false;">COMEÇAR MINHA ANÁLISE ➔</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 3. DEPOIMENTOS ===== -->
+    <section class="testimonials scroll-reveal">
+        <div class="container" style="max-width: 100%; padding: 0;">
+            <div class="section-header" style="padding: 0 1.25rem;">
+                <p class="section-tag">💬 RELATOS REAIS</p>
+                <h2>Quem usou e descobriu a verdade</h2>
+            </div>
+            <div class="testimonials-marquee-container">
+                <div class="testimonials-track">
+                    <!-- SET A -->
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Eu achei que estava paranoica. Depois da análise comecei a perceber padrões que eu ignorava fazia meses."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/fernanda.png" alt="Fernanda">
+                            <div class="author-info"><strong>Fernanda</strong><span>Usuária Verificada</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Foi assustador o quanto bateu com o que eu já sentia."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/carlos.jpg" alt="Carlos">
+                            <div class="author-info"><strong>Carlos</strong><span>Usuário Verificado</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Entrei achando que era besteira, mas algumas coisas fizeram sentido demais."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/juliana.jpg" alt="Juliana">
+                            <div class="author-info"><strong>Juliana</strong><span>Usuária Verificada</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Me mostrou detalhes que estavam na minha frente e eu não queria ver."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/marcos.jpg" alt="Marcos">
+                            <div class="author-info"><strong>Marcos</strong><span>Usuário Verificado</span></div>
+                        </div>
+                    </div>
+                    <!-- SET B (Duplicado para rolagem infinita) -->
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Eu achei que estava paranoica. Depois da análise comecei a perceber padrões que eu ignorava fazia meses."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/fernanda.png" alt="Fernanda">
+                            <div class="author-info"><strong>Fernanda</strong><span>Usuária Verificada</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Foi assustador o quanto bateu com o que eu já sentia."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/carlos.jpg" alt="Carlos">
+                            <div class="author-info"><strong>Carlos</strong><span>Usuário Verificado</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Entrei achando que era besteira, mas algumas coisas fizeram sentido demais."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/juliana.jpg" alt="Juliana">
+                            <div class="author-info"><strong>Juliana</strong><span>Usuária Verificada</span></div>
+                        </div>
+                    </div>
+                    <div class="review-card glass">
+                        <div class="stars">★★★★★</div>
+                        <p class="quote">"Me mostrou detalhes que estavam na minha frente e eu não queria ver."</p>
+                        <div class="review-author">
+                            <img class="author-avatar" src="assets/marcos.jpg" alt="Marcos">
+                            <div class="author-info"><strong>Marcos</strong><span>Usuário Verificado</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 4. FAQ ===== -->
+    <section class="faq-section scroll-reveal">
+        <div class="container">
+            <h2>Dúvidas rápidas</h2>
+            <div style="max-width:620px; margin:0 auto;">
+                <details class="faq-item"><summary>A análise funciona no celular?</summary><p>Sim. Funciona em Android, iPhone e computador.</p></details>
+                <details class="faq-item"><summary>Preciso instalar algo?</summary><p>Não. Tudo acontece direto no navegador.</p></details>
+                <details class="faq-item"><summary>Minha conversa fica salva?</summary><p>Não. A análise é temporária e confidencial.</p></details>
+                <details class="faq-item"><summary>Quanto tempo leva?</summary><p>Menos de 2 minutos.</p></details>
+                <details class="faq-item"><summary>O resultado sai na hora?</summary><p>Sim. O relatório é liberado imediatamente após o processamento.</p></details>
+                <details class="faq-item"><summary>Isso serve para namoro e casamento?</summary><p>Sim. Serve para qualquer relação onde exista conversa e mudança de comportamento.</p></details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 5. CTA INTERMEDIÁRIO ===== -->
+    <section style="padding:3rem 0 1rem; text-align:center;" class="scroll-reveal">
+        <div class="container">
+            <h2 style="font-size:clamp(1.3rem,3vw,1.8rem); color:#fff; margin-bottom:0.8rem;">Pronto para descobrir a verdade?</h2>
+            <p style="color:var(--text-muted); max-width:500px; margin:0 auto 1.5rem; font-size:0.95rem; line-height:1.6;">O diagnóstico emocional leva menos de 2 minutos. Tudo é confidencial.</p>
+            <a href="#experience" class="cta-btn pulse-glow" onclick="scrollToExperience(); return false;">INICIAR DIAGNÓSTICO ➔</a>
+        </div>
+    </section>
+
+    <!-- ===== 6. EXPERIÊNCIA PRINCIPAL ===== -->
+    <section class="experience-section scroll-reveal" id="experience">
+        <div class="container">
+            <div class="experience-box glass">
+
+                <!-- ─── TELA 1: IDENTIFICAÇÃO EM ETAPAS ─── -->
+                <div id="id-screen" style="text-align:center;">
+                    <div class="term-header">
+                        <span class="term-dot r"></span>
+                        <span class="term-dot y"></span>
+                        <span class="term-dot g"></span>
+                        <span class="term-title">SISTEMA DETECTA A.I — IDENTIFICAÇÃO DO CASO</span>
+                    </div>
+                    <div style="margin-top:1.5rem;">
+                        <div class="id-badge">🔐 ACESSO CONFIDENCIAL</div>
+
+                        <!-- Tela Inicial do Cartão (Antes de começar o preenchimento) -->
+                        <div id="id-intro">
+                            <h3 style="color:#fff; font-size:clamp(1.1rem,3vw,1.4rem); margin:1rem 0 0.5rem; line-height:1.3;">Você está pronto para saber a verdade?</h3>
+                            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem; line-height:1.55;">Nossa inteligência artificial comportamental irá analisar os sinais emocionais ocultos em suas conversas.</p>
+                            <button class="cta-btn pulse-glow" onclick="startIdSteps()" style="width:100%; max-width:320px;">INICIAR DIAGNÓSTICO ➔</button>
+                            <p style="font-size:0.72rem; color:var(--text-dim); margin-top:0.85rem;">🔒 Análise confidencial. Seus dados estão 100% seguros.</p>
+                        </div>
+
+                        <!-- Formulário em Etapas (Wizard) -->
+                        <div id="id-steps" class="hidden">
+                            <div class="id-step-progress">
+                                <div class="id-step-bar"><div class="id-step-fill" id="id-step-fill" style="width: 25%;"></div></div>
+                                <div style="display:flex; justify-content:space-between; margin-top:0.35rem; font-size:0.7rem; color:var(--text-dim); font-weight:600;">
+                                    <span id="id-step-label">Passo 1 de 4</span>
+                                    <span>IDENTIFICAÇÃO</span>
+                                </div>
+                            </div>
+
+                            <!-- ETAPA 1: NOME DO USUÁRIO -->
+                            <div class="id-step-pane active" id="id-pane-1">
+                                <h3 style="color:#fff; font-size:1.15rem; margin-bottom:1.25rem;">Para começarmos, qual é o seu nome?</h3>
+                                <div class="id-field" style="max-width:320px; margin:0 auto 1.5rem;">
+                                    <input type="text" id="inp-name" placeholder="Digite seu nome..." maxlength="30" autocomplete="off" onkeydown="if(event.key==='Enter') nextIdPane(2)">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:center; max-width:320px; margin:0 auto;">
+                                    <button class="cta-btn pulse-glow" onclick="nextIdPane(2)" style="width:100%;">AVANÇAR ➔</button>
+                                    <button class="skip-btn" onclick="exitToHome()">← Voltar para o início</button>
+                                </div>
+                            </div>
+
+                            <!-- ETAPA 2: NOME DO PARCEIRO -->
+                            <div class="id-step-pane hidden" id="id-pane-2">
+                                <h3 style="color:#fff; font-size:1.15rem; margin-bottom:1.25rem;">E qual o nome do(a) seu(sua) parceiro(a)?</h3>
+                                <div class="id-field" style="max-width:320px; margin:0 auto 1.5rem;">
+                                    <input type="text" id="inp-partner" placeholder="Digite o nome dele(a)..." maxlength="30" autocomplete="off" onkeydown="if(event.key==='Enter') nextIdPane(3)">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:center; max-width:320px; margin:0 auto;">
+                                    <button class="cta-btn pulse-glow" onclick="nextIdPane(3)" style="width:100%;">AVANÇAR ➔</button>
+                                    <button class="skip-btn" onclick="prevIdPane(1)">← Voltar</button>
+                                </div>
+                            </div>
+
+                            <!-- ETAPA 3: TEMPO JUNTOS -->
+                            <div class="id-step-pane hidden" id="id-pane-3">
+                                <h3 style="color:#fff; font-size:1.15rem; margin-bottom:1.25rem;">Há quanto tempo vocês estão juntos?</h3>
+                                <div class="id-field" style="max-width:320px; margin:0 auto 1.5rem;">
+                                    <select id="inp-time" onchange="nextIdPane(4)">
+                                        <option value="" disabled selected>Selecione o tempo...</option>
+                                        <option value="menos de 6 meses">Menos de 6 meses</option>
+                                        <option value="6 meses a 1 ano">6 meses a 1 ano</option>
+                                        <option value="1 a 2 anos">1 a 2 anos</option>
+                                        <option value="2 a 5 anos">2 a 5 anos</option>
+                                        <option value="mais de 5 anos">Mais de 5 anos</option>
+                                    </select>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:center; max-width:320px; margin:0 auto;">
+                                    <button class="cta-btn pulse-glow" onclick="nextIdPane(4)" style="width:100%;">AVANÇAR ➔</button>
+                                    <button class="skip-btn" onclick="prevIdPane(2)">← Voltar</button>
+                                </div>
+                            </div>
+
+                            <!-- ETAPA 4: SENTIMENTO -->
+                            <div class="id-step-pane hidden" id="id-pane-4">
+                                <h3 style="color:#fff; font-size:1.15rem; margin-bottom:1.25rem;">O que você sente na relação hoje?</h3>
+                                <div class="id-field" style="max-width:320px; margin:0 auto 1.5rem;">
+                                    <select id="inp-feeling">
+                                        <option value="" selected>Prefiro não dizer (Opcional)</option>
+                                        <option value="tenso">Tenso e distante</option>
+                                        <option value="normal">Normal, mas com algo errado</option>
+                                        <option value="bom">Bom por fora, mas algo me incomoda</option>
+                                        <option value="critico">Em crise</option>
+                                    </select>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:center; max-width:320px; margin:0 auto;">
+                                    <button class="cta-btn pulse-glow" onclick="startIdentification()" style="width:100%;">INICIAR DIAGNÓSTICO EMOCIONAL ➔</button>
+                                    <button class="skip-btn" onclick="prevIdPane(3)">← Voltar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─── TELA 2: QUIZ ─── -->
+                <div id="quiz-screen" class="hidden">
+                    <div class="quiz-progress">
+                        <div class="qp-bar-bg"><div class="qp-bar-fill" id="qp-fill"></div></div>
+                        <div class="qp-info">
+                            <span class="qp-label" id="qp-label">Pergunta 1 de 10</span>
+                            <span class="qp-pct" id="qp-pct">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="sys-feedback" id="sys-fb">
+                        <span>🔍</span>
+                        <span id="fb-text">Analisando padrões comportamentais...</span>
+                    </div>
+
+                    <!-- Q1 -->
+                    <div class="quiz-step active" id="q1">
+                        <p class="quiz-context" id="q1-ctx">Analisando caso...</p>
+                        <h3>Nos últimos dias, você percebeu alguma mudança no jeito dele(a) falar com você?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(2,3,'intuition','Distanciamento comunicacional registrado. Analisando padrão...')">Sim, ficou mais frio(a) ou distante</button>
+                            <button class="quiz-btn" onclick="nextQ(2,2,'intuition','Variação de comportamento detectada. Cruzando dados...')">Às vezes muda do nada</button>
+                            <button class="quiz-btn" onclick="nextQ(2,1,'intuition','Sinal leve detectado. Continuando análise...')">Percebi pouca coisa, mas me incomodou</button>
+                            <button class="quiz-btn" onclick="nextQ(2,0,'intuition','Continuando análise comportamental...')">Não percebi mudança</button>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="quiz-step" id="q2">
+                        <h3>Quando você manda mensagem, a resposta dele(a) costuma vir como?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(3,3,'gaslighting','⚠ Padrão de resposta fria identificado. Sinal significativo.')">Seca, curta ou sem emoção</button>
+                            <button class="quiz-btn" onclick="nextQ(3,2,'gaslighting','Mudança de frequência de resposta detectada...')">Demorada e diferente de antes</button>
+                            <button class="quiz-btn" onclick="nextQ(3,1,'gaslighting','Comportamento oscilante registrado...')">Normal às vezes, estranha em outras</button>
+                            <button class="quiz-btn" onclick="nextQ(3,0,'gaslighting','Analisando outros vetores...')">Igual sempre foi</button>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="quiz-step" id="q3">
+                        <h3>Você sente que ele(a) ainda te procura com a mesma vontade de antes?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(4,3,'coldness','⚠ Resfriamento emocional confirmado.')">Não, parece que esfriou muito</button>
+                            <button class="quiz-btn" onclick="nextQ(4,2,'coldness','Redução de iniciativa afetiva detectada...')">Procura, mas bem menos</button>
+                            <button class="quiz-btn" onclick="nextQ(4,1,'coldness','Padrão condicional registrado. Cruzando dados...')">Só quando convém</button>
+                            <button class="quiz-btn" onclick="nextQ(4,0,'coldness','Analisando frequência...')">Sim, continua igual</button>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="quiz-step" id="q4">
+                        <h3>O comportamento dele(a) com o celular mudou de alguma forma?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(5,3,'frequency','⚠ Comportamento de ocultação confirmado. Padrão crítico.')">Sim, esconde, vira a tela ou leva junto</button>
+                            <button class="quiz-btn" onclick="nextQ(5,2,'frequency','Privacidade excessiva detectada...')">Ficou mais reservado(a) do que antes</button>
+                            <button class="quiz-btn" onclick="nextQ(5,1,'frequency','Ocorrência registrada. Continuando...')">Já reparei algumas atitudes estranhas</button>
+                            <button class="quiz-btn" onclick="nextQ(5,0,'frequency','Verificando outros vetores...')">Não mudou nada</button>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="quiz-step" id="q5">
+                        <h3>Teve alguma mudança na rotina dele(a) que ficou mal explicada?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(6,3,'phone','⚠ Inconsistência de rotina detectada. Alto peso na análise.')">Sim, horários, saídas ou desculpas mudaram</button>
+                            <button class="quiz-btn" onclick="nextQ(6,2,'phone','Padrão confuso de rotina registrado...')">Algumas coisas ficaram confusas</button>
+                            <button class="quiz-btn" onclick="nextQ(6,1,'phone','Sinal leve de alteração registrado...')">Pouca coisa, mas percebi</button>
+                            <button class="quiz-btn" onclick="nextQ(6,0,'phone','Analisando comportamento emocional...')">Não, rotina normal</button>
+                        </div>
+                        <p class="quiz-strategic-copy">Alguns sinais só parecem pequenos quando são vistos separados.</p>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="quiz-step" id="q6">
+                        <h3>Quando você pergunta algo, como ele(a) costuma reagir?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(7,3,'deepFeel','⚠ Padrão defensivo extremo identificado.')">Fica irritado(a) ou vira o jogo contra mim</button>
+                            <button class="quiz-btn" onclick="nextQ(7,2,'deepFeel','Minimização recorrente detectada...')">Diz que estou exagerando</button>
+                            <button class="quiz-btn" onclick="nextQ(7,1,'deepFeel','Evasão parcial registrada...')">Responde, mas parece esconder algo</button>
+                            <button class="quiz-btn" onclick="nextQ(7,0,'deepFeel','Analisando próximo vetor...')">Responde normalmente</button>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="quiz-step" id="q7">
+                        <h3>Comparando com o começo, o carinho e a atenção diminuíram?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(8,3,'anxiety','⚠ Regressão afetiva severa confirmada.')">Sim, diminuiu muito</button>
+                            <button class="quiz-btn" onclick="nextQ(8,2,'anxiety','Queda progressiva de afeto registrada...')">Diminuiu aos poucos</button>
+                            <button class="quiz-btn" onclick="nextQ(8,1,'anxiety','Oscilação afetiva detectada...')">Oscila bastante</button>
+                            <button class="quiz-btn" onclick="nextQ(8,0,'anxiety','Continuando diagnóstico...')">Não diminuiu</button>
+                        </div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="quiz-step" id="q8">
+                        <h3>O quanto essa dúvida tem mexido com você?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(9,3,'projection','Nível de impacto emocional: CRÍTICO.')">Muito, penso nisso quase todo dia</button>
+                            <button class="quiz-btn" onclick="nextQ(9,2,'projection','Impacto emocional elevado registrado...')">Bastante, mesmo tentando ignorar</button>
+                            <button class="quiz-btn" onclick="nextQ(9,1,'projection','Incômodo moderado anotado...')">Um pouco, mas incomoda</button>
+                            <button class="quiz-btn" onclick="nextQ(9,0,'projection','Analisando próximo vetor...')">Quase nada</button>
+                        </div>
+                        <p class="quiz-strategic-copy">O problema da dúvida é que ela não fica quieta. Ela cresce no silêncio.</p>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="quiz-step" id="q9">
+                        <h3>Se você não descobrir nada agora, o que provavelmente vai acontecer?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="nextQ(10,3,'courage','Projeção negativa confirmada. Preparando análise final...')">Vou continuar paranoico(a) e procurando sinais</button>
+                            <button class="quiz-btn" onclick="nextQ(10,2,'courage','Tendência de recorrência registrada...')">Vou tentar ignorar, mas sei que volta</button>
+                            <button class="quiz-btn" onclick="nextQ(10,1,'courage','Incerteza emocional anotada...')">Talvez eu esqueça por um tempo</button>
+                            <button class="quiz-btn" onclick="nextQ(10,0,'courage','Registrado. Última pergunta...')">Acho que vou ficar tranquilo(a)</button>
+                        </div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="quiz-step" id="q10">
+                        <h3>Você prefere continuar tentando adivinhar sozinho(a) ou ver uma análise mais clara dos sinais?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="finishQuiz(3,'final')">Quero ver a análise agora</button>
+                            <button class="quiz-btn" onclick="finishQuiz(3,'final')">Preciso entender o que está acontecendo</button>
+                            <button class="quiz-btn" onclick="finishQuiz(2,'final')">Tenho medo, mas quero saber</button>
+                            <button class="quiz-btn" onclick="finishQuiz(1,'final')">Ainda estou em dúvida</button>
+                        </div>
+                    </div>
+
+                    <!-- TRANSITION: MINI SCORING SCREEN -->
+                    <div class="quiz-step" id="q-trans">
+                        <div class="quiz-scoring-screen" id="quiz-scoring-screen">
+                            <!-- Header -->
+                            <div class="qs-header">
+                                <div class="qs-radar">
+                                    <div class="qs-radar-core"></div>
+                                    <div class="qs-radar-ring r1"></div>
+                                    <div class="qs-radar-ring r2"></div>
+                                    <div class="qs-radar-ring r3"></div>
+                                </div>
+                                <p class="qs-title" id="qs-title">Processando respostas…</p>
+                                <p class="qs-subtitle" id="qs-subtitle">Iniciando análise comportamental</p>
+                            </div>
+
+                            <!-- Dynamic log feed -->
+                            <div class="qs-log" id="qs-log"></div>
+
+                            <!-- Alert flash -->
+                            <div class="qs-alert hidden" id="qs-alert">
+                                <span class="qs-alert-dot"></span>
+                                <span id="qs-alert-text">PADRÃO IDENTIFICADO</span>
+                            </div>
+
+                            <!-- Progress bar -->
+                            <div class="qs-progress">
+                                <div class="qs-bar-bg"><div class="qs-bar-fill" id="qs-bar"></div></div>
+                                <div class="qs-bar-labels">
+                                    <span id="qs-pct">0%</span>
+                                    <span class="qs-bar-label">ANALISANDO…</span>
+                                </div>
+                            </div>
+
+                            <!-- Score reveal at end -->
+                            <div class="qs-score-reveal hidden" id="qs-score-reveal">
+                                <span class="qs-score-num" id="qs-score-num" style="color: var(--accent); text-shadow: 0 0 20px var(--accent-glow);">PRONTO</span>
+                                <span class="qs-score-label">ETAPA 1 CONCLUÍDA COM SUCESSO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align:center; margin-top:1.5rem;" id="quiz-back-btn-container">
+                        <button class="skip-btn" onclick="exitToHome()">← Abandonar diagnóstico e voltar</button>
+                    </div>
+                </div>
+
+                <!-- ─── TELA 3: UPLOAD ─── -->
+                <div id="upload-screen" class="hidden">
+
+                    <!-- Badge de progresso -->
+                    <div class="upload-phase-badge">
+                        <span class="upb-dot"></span>
+                        <span>FASE 2 DE 3 — CRUZAMENTO DE DADOS</span>
+                    </div>
+
+                    <!-- Copy nova -->
+                    <div class="upload-hero-copy">
+                        <h3 id="upload-title">Quase lá! 🔥</h3>
+                        <p id="upload-sub">Você está prestes a descobrir a fundo o que está acontecendo. Basta seguir o passo a passo abaixo para enviar a conversa e a IA vai cruzar tudo com as suas respostas.</p>
+                    </div>
+
+                    <!-- Tutorial SEMPRE VISÍVEL -->
+                    <div class="tutorial-fixed">
+                        <div class="tut-fixed-header">
+                            <span class="tut-wa-icon">📱</span>
+                            <span>Como exportar a conversa do <strong>WhatsApp</strong></span>
+                        </div>
+                        <div class="tut-fixed-steps">
+                            <div class="tut-step">
+                                <span class="tut-num">1</span>
+                                <span>Abra a <strong>conversa</strong> com ele(a) no WhatsApp</span>
+                            </div>
+                            <div class="tut-step">
+                                <span class="tut-num">2</span>
+                                <span>Toque nos <strong>⋮ 3 pontos</strong> no canto superior direito</span>
+                            </div>
+                            <div class="tut-step">
+                                <span class="tut-num">3</span>
+                                <span>Selecione <strong>"Mais"</strong> → <strong>"Exportar conversa"</strong></span>
+                            </div>
+                            <div class="tut-step">
+                                <span class="tut-num">4</span>
+                                <span>Escolha <strong>"Sem mídia"</strong> para um arquivo mais leve</span>
+                            </div>
+                            <div class="tut-step">
+                                <span class="tut-num">5</span>
+                                <span>Salve e envie o arquivo <strong>.txt</strong> ou <strong>.zip</strong> abaixo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropzone: aceita .txt e .zip -->
+                    <div class="dropzone" id="dropzone"
+                         onclick="document.getElementById('file-input').click()"
+                         ondragover="event.preventDefault(); this.classList.add('dragover')"
+                         ondragleave="this.classList.remove('dragover')"
+                         ondrop="handleDrop(event)">
+                        <div class="dropzone-icon">📂</div>
+                        <h3>Selecionar arquivo do WhatsApp</h3>
+                        <p style="color:var(--text-dim); margin-top:0.3rem;">Arraste ou clique para selecionar</p>
+                        <p style="color:var(--accent); font-size:0.75rem; margin-top:0.4rem; font-weight:600;">Formatos aceitos: .txt · .zip</p>
+                        <input type="file" id="file-input" accept=".txt,.zip" style="display:none;" onchange="handleFile(this)">
+                    </div>
+
+                </div>
+
+                <!-- ─── TELA 4: PROCESSAMENTO ─── -->
+                <div id="analysis-screen" class="hidden" style="text-align:center;">
+                    <div class="term-header" style="margin-bottom:1.5rem;">
+                        <span class="term-dot r"></span>
+                        <span class="term-dot y"></span>
+                        <span class="term-dot g"></span>
+                        <span class="term-title" id="analysis-term">SISTEMA IA — PROCESSAMENTO PSICOLÓGICO</span>
+                    </div>
+
+                    <div class="radar-anim"><div class="radar-core"></div><div class="radar-ring"></div></div>
+                    <h2 class="pulsing-text" id="analysis-title" style="font-size:1.1rem; color:#fff; margin-bottom:1rem;">Iniciando análise comportamental...</h2>
+
+                    <div class="progress-wrap">
+                        <div class="prog-bar-bg"><div class="prog-fill" id="prog-fill"></div></div>
+                        <div class="prog-info">
+                            <span class="prog-pct" id="prog-pct">0%</span>
+                            <span class="prog-time">Restam <b id="prog-time">28</b>s</span>
+                        </div>
+                    </div>
+
+                    <div class="analysis-log" id="log-box">
+                        <div class="log-line"><span class="log-icon">▶</span><span>Inicializando módulo de análise...</span></div>
+                    </div>
+
+                    <div class="alert-flash hidden" id="alert-box">
+                        <span>⚠</span> <span id="alert-text">INCONSISTÊNCIA DETECTADA</span>
+                    </div>
+
+                    <p class="status-line" id="status-line">Lendo padrões emocionais…</p>
+                </div>
+
+                <!-- ─── TELA 5: RESULTADO ─── -->
+                <div id="result-screen" class="hidden">
+                    <div class="result-panel" id="result-content">
+                        <!-- Filled dynamically by script.js -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Detecta A.I. &nbsp;|&nbsp; Este site não é afiliado ao WhatsApp Inc. ou Meta.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

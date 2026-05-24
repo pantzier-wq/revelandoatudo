@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detecta A.I — Análise Personalizada</title>
+    <meta name="description" content="Responda o quiz e descubra sinais ocultos na conversa.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <style>
+        body{background:linear-gradient(135deg,#000000,#0B192C,#000000);background-size:200% 200%;animation:gradientMove 15s ease infinite;min-height:100vh}
+        .quiz-page-wrap{max-width:680px;margin:0 auto;padding:1rem}
+        .quiz-page-header{text-align:center;padding:2rem 0 1rem}
+        .quiz-page-header .logo{font-size:1.4rem}
+        .quiz-wrapper{max-width:640px;margin:0 auto}
+        .quiz-step-label{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:#3b82f6;margin-bottom:.5rem;font-weight:600}
+        .quiz-step h3{font-size:clamp(1.1rem,3vw,1.35rem);font-family:'Outfit',sans-serif;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.3}
+        .quiz-options{display:flex;flex-direction:column;gap:.75rem}
+        .quiz-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem 1.2rem;color:#e2e8f0;font-size:.95rem;font-family:'Inter',sans-serif;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+        .quiz-btn:hover,.quiz-btn:focus{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.4);color:#fff;transform:translateX(4px)}
+        .quiz-btn:active{transform:scale(.98)}
+        .quiz-dots{display:flex;justify-content:center;gap:6px;margin-bottom:2rem}
+        .quiz-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:background .3s}
+        .quiz-dot.active{background:#3b82f6}
+        .quiz-dot.done{background:rgba(59,130,246,.4)}
+        .quiz-microcopy{font-size:.85rem;color:rgba(59,130,246,.7);font-style:italic;margin-bottom:.75rem;opacity:0;animation:microcopyFade .6s ease .15s forwards}
+        @keyframes microcopyFade{to{opacity:1}}
+
+        /* Override radar + progress to blue */
+        .radar-dot{background:#3b82f6 !important;box-shadow:0 0 15px #3b82f6 !important}
+        .radar-ripple{border-color:#3b82f6 !important}
+        .progress-fill{background:linear-gradient(90deg,#2563eb,#3b82f6) !important}
+        .glow-pulse{animation:glow-pulse-blue 2s infinite !important}
+        @keyframes glow-pulse-blue{0%{box-shadow:0 0 5px #3b82f6}50%{box-shadow:0 0 15px #3b82f6}100%{box-shadow:0 0 5px #3b82f6}}
+
+        /* Mini leitura styles */
+        .mini-leitura-wrapper{text-align:left;padding:.5rem 0 1rem}
+        .mini-leitura-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.25rem}
+        .badge-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;animation:pulseDot 2s ease-in-out infinite}
+        @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
+        .badge-label{color:#94a3b8}.badge-level{font-weight:800;letter-spacing:2px}
+        .mini-leitura-headline{font-family:'Outfit',sans-serif;font-size:clamp(1.1rem,3vw,1.35rem);color:#fff;font-weight:700;line-height:1.4;margin-bottom:1.5rem}
+        .mini-leitura-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:1.25rem 0}
+        .mini-leitura-validation{font-size:1rem;color:#cbd5e1;line-height:1.7;margin-bottom:1.25rem;font-style:italic}
+        .mini-leitura-insight{display:flex;gap:.85rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-left:3px solid rgba(59,130,246,.5);border-radius:10px;padding:1rem 1.1rem;margin-bottom:.75rem;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+        .mini-leitura-insight.visible{opacity:1;transform:translateY(0)}
+        .mini-leitura-insight-dot{width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:6px}
+        .mini-leitura-insight p{color:#e2e8f0;font-size:.95rem;line-height:1.65;margin:0}
+        .mini-leitura-relief{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);border-radius:10px;padding:1rem 1.2rem;margin:1.25rem 0 1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease .1s,transform .5s ease .1s}
+        .mini-leitura-relief.visible{opacity:1;transform:translateY(0)}
+        .mini-leitura-relief p{color:#94a3b8;font-size:.92rem;line-height:1.65;margin:0}
+        .mini-leitura-bridge{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;text-align:center;margin:1.5rem 0 0;opacity:0;transition:opacity .6s ease}
+        .mini-leitura-bridge.visible{opacity:1}
+        .mini-leitura-price-block{margin:1.75rem 0 .5rem;text-align:center;padding:1.5rem 1.25rem;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:14px;opacity:0;transform:translateY(10px);transition:opacity .6s ease .3s,transform .6s ease .3s}
+        .mini-leitura-price-block.visible{opacity:1;transform:translateY(0)}
+        .price-label{font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin:0 0 .85rem;font-weight:500}
+        .price-installment{font-family:'Outfit',sans-serif;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-1px;margin-bottom:.4rem}
+        .price-cash{font-size:.9rem;color:#94a3b8;font-weight:400}
+        .price-cash strong{color:#fff;font-weight:600}
+        .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        @media(max-width:600px){.reviews-grid{grid-template-columns:1fr}}
+        .faq-section{padding:3rem 0 2rem}
+        .faq-section h2{font-size:1.4rem;margin-bottom:1.5rem;color:#fff;text-align:center}
+    </style>
+</head>
+<body>
+<div class="quiz-page-wrap">
+    <div class="quiz-page-header">
+        <div class="logo">Detecta<span class="hl">A.I</span></div>
+    </div>
+    <div class="container upload-wrapper glass" style="margin-top:1rem">
+        <div class="quiz-container" id="quiz-container">
+            <div class="quiz-wrapper">
+                <div class="quiz-dots" id="quiz-dots">
+                    <div class="quiz-dot active" id="dot-1"></div><div class="quiz-dot" id="dot-2"></div><div class="quiz-dot" id="dot-3"></div><div class="quiz-dot" id="dot-4"></div><div class="quiz-dot" id="dot-5"></div><div class="quiz-dot" id="dot-6"></div><div class="quiz-dot" id="dot-7"></div><div class="quiz-dot" id="dot-8"></div><div class="quiz-dot" id="dot-9"></div><div class="quiz-dot" id="dot-10"></div>
+                </div>
+                <div class="quiz-header"><p class="quiz-step-label" id="step-label">Pergunta 1 de 10</p></div>
+
+                <!-- Q1 -->
+                <div class="quiz-step active" id="q1">
+                    <h3>Nos últimos dias, você sentiu que algo mudou, mas não sabe explicar exatamente o quê?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(2,3,'intuition')">Sim, é exatamente isso que sinto</button>
+                        <button class="quiz-btn" onclick="nextQuiz(2,2,'intuition')">Mais ou menos, tem algo no ar</button>
+                        <button class="quiz-btn" onclick="nextQuiz(2,1,'intuition')">Talvez, mas não sei dizer</button>
+                        <button class="quiz-btn" onclick="nextQuiz(2,0,'intuition')">Não, está tudo normal</button>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="quiz-step" id="q2">
+                    <p class="quiz-microcopy">Isso acontece mais do que você imagina…</p>
+                    <h3>E quando você tenta entender isso, ele(a) diz que é coisa da sua cabeça?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(3,3,'gaslighting')">Sim, sempre fala que estou inventando</button>
+                        <button class="quiz-btn" onclick="nextQuiz(3,2,'gaslighting')">Às vezes minimiza o que eu sinto</button>
+                        <button class="quiz-btn" onclick="nextQuiz(3,1,'gaslighting')">Já aconteceu uma vez ou outra</button>
+                        <button class="quiz-btn" onclick="nextQuiz(3,0,'gaslighting')">Não, ele(a) ouve quando falo</button>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="quiz-step" id="q3">
+                    <h3>Você já percebeu mudanças no jeito de responder… tipo mais seco ou distante?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(4,3,'coldResponses')">Sim, ficou bem diferente do que era</button>
+                        <button class="quiz-btn" onclick="nextQuiz(4,2,'coldResponses')">Mudou bastante nos últimos tempos</button>
+                        <button class="quiz-btn" onclick="nextQuiz(4,1,'coldResponses')">Talvez um pouco, não tenho certeza</button>
+                        <button class="quiz-btn" onclick="nextQuiz(4,0,'coldResponses')">Não, continua igual</button>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="quiz-step" id="q4">
+                    <p class="quiz-microcopy">Esse é um dos primeiros sinais que aparecem…</p>
+                    <h3>Essas mudanças parecem estar ficando mais frequentes?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(5,3,'frequency')">Sim, cada vez mais</button>
+                        <button class="quiz-btn" onclick="nextQuiz(5,2,'frequency')">Vai e volta, mas está piorando</button>
+                        <button class="quiz-btn" onclick="nextQuiz(5,1,'frequency')">De vez em quando</button>
+                        <button class="quiz-btn" onclick="nextQuiz(5,0,'frequency')">Não percebi padrão</button>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="quiz-step" id="q5">
+                    <h3>Ele(a) anda mais reservado(a) com o celular do que antes?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(6,3,'cellphone')">Sim, vira de lado, sai do ambiente</button>
+                        <button class="quiz-btn" onclick="nextQuiz(6,2,'cellphone')">Às vezes percebo isso</button>
+                        <button class="quiz-btn" onclick="nextQuiz(6,1,'cellphone')">Já reparei uma vez</button>
+                        <button class="quiz-btn" onclick="nextQuiz(6,0,'cellphone')">Não, nunca vi isso</button>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="quiz-step" id="q6">
+                    <p class="quiz-microcopy">Muita gente só percebe isso tarde demais…</p>
+                    <h3>Você tenta ignorar isso… mas no fundo sabe que tem algo estranho?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(7,3,'deepIntuition')">Sim, meu instinto diz que algo está errado</button>
+                        <button class="quiz-btn" onclick="nextQuiz(7,2,'deepIntuition')">Na maioria das vezes, sim</button>
+                        <button class="quiz-btn" onclick="nextQuiz(7,1,'deepIntuition')">Às vezes bate uma sensação</button>
+                        <button class="quiz-btn" onclick="nextQuiz(7,0,'deepIntuition')">Não, acho que está tudo bem</button>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="quiz-step" id="q7">
+                    <h3>O que pesa mais hoje: o medo de descobrir… ou a dúvida que não sai da cabeça?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(8,3,'anxiety')">A dúvida está me consumindo</button>
+                        <button class="quiz-btn" onclick="nextQuiz(8,2,'anxiety')">Os dois pesam, mas a dúvida é pior</button>
+                        <button class="quiz-btn" onclick="nextQuiz(8,1,'anxiety')">Tenho mais medo de descobrir</button>
+                        <button class="quiz-btn" onclick="nextQuiz(8,0,'anxiety')">Nenhum dos dois me afeta tanto</button>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="quiz-step" id="q8">
+                    <p class="quiz-microcopy">A dúvida nunca some sozinha…</p>
+                    <h3>Se continuar sem resposta, você acha que isso vai te deixar mais tranquilo(a)… ou pior?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(9,3,'projection')">Vai ficar pior, com certeza</button>
+                        <button class="quiz-btn" onclick="nextQuiz(9,2,'projection')">Provavelmente pior</button>
+                        <button class="quiz-btn" onclick="nextQuiz(9,1,'projection')">Não sei, talvez eu consiga esquecer</button>
+                        <button class="quiz-btn" onclick="nextQuiz(9,0,'projection')">Acho que vou ficar bem</button>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="quiz-step" id="q9">
+                    <h3>Se existisse uma forma de analisar essa conversa e mostrar sinais que você não consegue ver sozinho(a)… você teria coragem de olhar?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="nextQuiz(10,3,'courage')">Sim, quero ver de uma vez</button>
+                        <button class="quiz-btn" onclick="nextQuiz(10,2,'courage')">Vai doer, mas preciso saber</button>
+                        <button class="quiz-btn" onclick="nextQuiz(10,1,'courage')">Tenho medo, mas vou em frente</button>
+                        <button class="quiz-btn" onclick="nextQuiz(10,0,'courage')">Ainda não sei se estou pronto(a)</button>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="quiz-step" id="q10">
+                    <p style="color:#94a3b8;font-size:.9rem;line-height:1.6;margin-bottom:1.2rem">Porque a verdade é uma só…<br>quando algo muda desse jeito, normalmente já tem um motivo por trás.</p>
+                    <h3>Você quer continuar só imaginando… ou prefere ver o que realmente está acontecendo?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="finishQuiz(3,'finalChoice')">Quero ver o que está acontecendo</button>
+                        <button class="quiz-btn" onclick="finishQuiz(2,'finalChoice')">Preciso da verdade, mesmo que doa</button>
+                    </div>
+                </div>
+
+                <!-- Transition -->
+                <div class="quiz-step" id="q-transition">
+                    <div style="text-align:center;padding:2rem 0">
+                        <div class="radar-animation" style="margin-bottom:1.5rem"><div class="radar-dot"></div><div class="radar-ripple"></div></div>
+                        <p style="color:#3b82f6;font-size:1rem;font-weight:600;letter-spacing:1px;text-transform:uppercase">Analisando seus padrões de resposta…</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis + Result -->
+        <div class="upload-container hidden" id="upload-container">
+            <div class="hidden" id="analysisModal">
+                <div class="modal-box modal-analyze inline-modal">
+                    <div class="radar-animation"><div class="radar-dot"></div><div class="radar-ripple"></div></div>
+                    <h2 class="pulsing-text">Montando sua análise inicial…</h2>
+                    <div class="progress-container">
+                        <div class="progress-bar-bg"><div class="progress-fill glow-pulse" id="progressBar"></div></div>
+                        <div class="progress-status-flex">
+                            <span class="percentage" id="progressPercentage">0%</span>
+                            <span class="time-left">Restam <b id="timeRemaining">20</b>s</span>
+                        </div>
+                    </div>
+                    <div class="clean-status-box" style="background:none;border:none;padding:0">
+                        <p class="status-msg fade-text" id="statusMessage" style="font-family:inherit;font-size:1.1rem;color:#fff">Analisando suas respostas…</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden" id="resultModal" style="position:relative;padding:2rem 0;width:100%">
+                <div class="modal-box danger-glass modal-result inline-modal text-center" style="max-width:650px;margin:0 auto;padding:4rem 2rem;background:rgba(10,12,18,.95);border:1px solid rgba(255,255,255,.05);border-radius:20px">
+                    <div id="dynamic-risk-content"></div>
+                    <div class="cta-block" style="margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.05)">
+                        <a href="https://pay.kirvano.com/d4552972-643a-4b72-a6a9-15415200c0a3" onclick="sessionStorage.setItem('clickedCheckout','true');" class="cta-btn pulse-glow max-btn" id="checkout-cta-btn" style="border-radius:100px;font-size:1.15rem;font-weight:800;letter-spacing:0;background:#3b82f6;border:none;box-shadow:0 0 30px rgba(59,130,246,.3)">DESBLOQUEAR MINHA ANÁLISE ➜</a>
+                        <!-- Fallback instructions -->
+                        <div style="margin-top:2rem;padding:1.25rem 1.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;text-align:left">
+                            <p style="color:#94a3b8;font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:.85rem">⚠️ Não conseguiu acessar? Siga estes passos:</p>
+                            <div style="display:flex;flex-direction:column;gap:.6rem">
+                                <div style="display:flex;align-items:flex-start;gap:.7rem">
+                                    <span style="background:rgba(59,130,246,.15);color:#3b82f6;font-weight:800;font-size:.78rem;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span>
+                                    <p style="color:#cbd5e1;font-size:.88rem;line-height:1.5;margin:0">Toque nos <strong style="color:#fff">3 pontinhos ...</strong> no canto superior direito da tela</p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:.7rem">
+                                    <span style="background:rgba(59,130,246,.15);color:#3b82f6;font-weight:800;font-size:.78rem;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span>
+                                    <p style="color:#cbd5e1;font-size:.88rem;line-height:1.5;margin:0">Selecione <strong style="color:#fff">"Abrir no navegador"</strong></p>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:.7rem">
+                                    <span style="background:rgba(59,130,246,.15);color:#3b82f6;font-weight:800;font-size:.78rem;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</span>
+                                    <p style="color:#cbd5e1;font-size:.88rem;line-height:1.5;margin:0">Clique novamente em <strong style="color:#fff">"Desbloquear Minha Análise"</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROVA SOCIAL -->
+    <section class="testimonials" style="padding:3rem 0">
+        <div class="section-header">
+            <h2>Quem usou e descobriu a verdade</h2>
+            <p>Mais de 400 relatórios só esta semana.</p>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card glass">
+                <div class="stars">★★★★★</div>
+                <p>"Achava que estava ficando paranoico. A análise apontou os dias e horários das desculpas. Doeu, mas me libertou."</p>
+                <div class="review-author"><img class="author-avatar" src="assets/marcos.jpg" alt="Marcos" style="object-fit:cover"><div class="author-info"><strong>Marcos Rocha</strong><span>Usuário Verificado</span></div></div>
+            </div>
+            <div class="review-card glass">
+                <div class="stars">★★★★★</div>
+                <p>"Em 30 segundos leu 2 anos de conversa. Assustadora de tão precisa. Necessária demais."</p>
+                <div class="review-author"><img class="author-avatar" src="assets/carlos.jpg" alt="Carlos" style="object-fit:cover"><div class="author-info"><strong>Carlos Eduardo</strong><span>Usuário Verificado</span></div></div>
+            </div>
+            <div class="review-card glass">
+                <div class="stars">★★★★★</div>
+                <p>"Me abriu os olhos quando mais precisava. Vi o nível de frieza real por trás das palavras."</p>
+                <div class="review-author"><img class="author-avatar" src="assets/fernanda.png" alt="Fernanda" style="object-fit:cover"><div class="author-info"><strong>Fernanda Silva</strong><span>Usuária Verificada</span></div></div>
+            </div>
+            <div class="review-card glass">
+                <div class="stars">★★★★★</div>
+                <p>"Me tirou do escuro. Mostrou um padrão de mentiras que eu nunca enxergaria sozinha."</p>
+                <div class="review-author"><img class="author-avatar" src="assets/juliana.jpg" alt="Juliana" style="object-fit:cover"><div class="author-info"><strong>Juliana Martins</strong><span>Usuária Verificada</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <h2>Dúvidas rápidas</h2>
+        <div class="faq-box" style="max-width:680px;margin:0 auto">
+            <details class="faq-item"><summary>Funciona no celular?</summary><p>Sim. Funciona em qualquer aparelho — Android, iPhone ou computador. Não precisa instalar nada.</p></details>
+            <details class="faq-item"><summary>Funciona para qualquer conversa do WhatsApp?</summary><p>Sim. Basta exportar a conversa diretamente pelo WhatsApp e o sistema analisa automaticamente os padrões de comportamento.</p></details>
+            <details class="faq-item"><summary>E se eu me arrepender de descobrir?</summary><p>É uma decisão difícil, mas a dúvida costuma doer mais do que a verdade. Você tem controle total sobre o que fazer com a informação.</p></details>
+        </div>
+    </section>
+
+    <footer><div class="container footer-content"><p>&copy; 2026 Detecta A.I. &nbsp;|&nbsp; Este site não é afiliado ao WhatsApp Inc. ou Meta.</p></div></footer>
+</div>
+
+<script src="emojis.js"></script>
+<script src="script.js?v=4"></script>
+</body>
+</html>

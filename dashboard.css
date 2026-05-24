@@ -1,0 +1,947 @@
+/* =========================================================================
+   Detecta A.I - Dashboard Styles
+   ========================================================================= */
+
+body {
+    /* Inherits animated gradient from styles.css */
+}
+
+/* Navbar */
+.app-nav {
+    background: linear-gradient(180deg, rgba(4,5,8,0.9) 0%, rgba(4,5,8,0.4) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1.5rem 0;
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.badge {
+    background: linear-gradient(45deg, var(--accent-red), var(--warning-yellow));
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.credits-box {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.credit-icon { color: var(--warning-yellow); }
+.user-avatar {
+    width: 36px; height: 36px;
+    background: #475569;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.btn-sm-outline {
+    border: 1px solid var(--accent-red);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: 0.2s;
+    cursor: pointer;
+    background: transparent;
+}
+.btn-sm-outline:hover { background: rgba(255,42,70,0.1); }
+.btn-full { width: 100%; display: inline-block; text-align: center; }
+
+/* Layout */
+.app-layout {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: block;
+}
+
+/* Dashboard Header / Sections */
+/* Premium Greeting */
+.welcome-banner {
+    margin-bottom: 3rem;
+    animation: fadeIn 0.8s ease;
+}
+.greeting-sub {
+    color: #f59e0b;
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.premium-greeting {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.gold-text {
+    color: #f59e0b;
+}
+.glow-gold {
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+.greeting-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.dash-section {
+    margin-bottom: 2rem;
+}
+.section-title {
+    margin-bottom: 1.5rem;
+}
+.section-title h2 {
+    font-size: 1.4rem;
+    color: #f8fafc;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+.section-title p {
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+/* Minimalist Upload & Empty State Boxes */
+.clean-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: 0.3s;
+}
+.clean-box.clickable {
+    cursor: pointer;
+}
+.clean-box.clickable:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+.clean-box h3 {
+    color: #e2e8f0;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.clean-box .sub {
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+.svg-icon {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+.svg-icon svg {
+    width: 34px;
+    height: 34px;
+}
+
+/* Error / Limit Message */
+.error-msg {
+    margin-top: 1.5rem;
+    background: rgba(255,42,70,0.1);
+    border: 1px solid var(--accent-red);
+    padding: 1rem;
+    border-radius: 8px;
+    color: #fff;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+/* Store Upsells */
+.app-store {
+    max-width: 1000px;
+    margin: 4rem auto 2rem;
+    padding: 0 1.5rem;
+}
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.store-item {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+    border-radius: 8px;
+}
+.store-item.border-green { border: 1px solid rgba(16,185,129,0.3); }
+.item-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.item-head h4 { color: #fff; font-size: 1rem;}
+.store-item p { font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; color: var(--text-muted); }
+.store-item .price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.one-time { font-size: 0.8rem; color: #64748b; font-weight: 400; }
+
+.locked {
+    opacity: 0.6;
+    user-select: none;
+    border: 1px dashed #475569;
+    position: relative;
+    pointer-events: auto; /* Active so they can click the buy button */
+}
+.lock-overlay {
+    position: absolute;
+    top: 15px; right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.lock-icon-svg {
+    width: 12px;
+    height: 12px;
+    color: #a1a1aa;
+    flex-shrink: 0;
+}
+
+
+/* Purchased state applied dynamically via JS */
+.unlocked {
+    opacity: 1 !important;
+    border: 1px solid rgba(16,185,129,0.3) !important;
+    background: rgba(16,185,129,0.05);
+}
+
+/* Golden Pass Combo */
+@keyframes breathingGlow {
+    0% {
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.05), inset 0 0 10px rgba(245, 158, 11, 0.02);
+        border-color: rgba(245, 158, 11, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 45px rgba(245, 158, 11, 0.35), inset 0 0 25px rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 1);
+    }
+}
+
+.golden-pass {
+    background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.01) 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    animation: breathingGlow 3s infinite alternate ease-in-out;
+}
+.gold-pass-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Golden Pass Checklist */
+.gold-pass-features {
+    text-align: left;
+    margin: 1.5rem 0;
+    background: rgba(0,0,0,0.3);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+.gold-pass-features h4 {
+    color: #f59e0b;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    padding-bottom: 0.5rem;
+}
+.gold-pass-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.gold-pass-features .check {
+    color: #10b981;
+    margin-right: 8px;
+    font-size: 0.95rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Store Emojis size & alignment */
+.item-head .icon {
+    font-size: 1.1rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gold-pass-crown {
+    font-size: 1.3rem;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.alert-siren {
+    font-size: 1.3rem;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.gold-pass-features .disclaimer {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Golden Pass Pricing */
+.gold-price-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.gold-price-box .old-price {
+    text-decoration: line-through;
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.gold-price-box .price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    line-height: 1;
+}
+.gold-price-box .currency-prefix {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #f59e0b;
+}
+.gold-price-box .currency-symbol {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #f59e0b;
+    letter-spacing: -1px;
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+.gold-price-box .gold-text {
+    font-size: clamp(3.5rem, 15vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 0.9;
+    margin: 0;
+    text-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+}
+.gold-price-box .payment-terms {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+/* Mobile Overrides for Master Pass */
+@media (max-width: 768px) {
+    .golden-pass {
+        padding: 1.5rem 1rem; 
+    }
+    .gold-pass-features {
+        padding: 1.25rem 0.75rem; 
+    }
+    .gold-price-box .price-row {
+        gap: 0.25rem;
+    }
+    .gold-pass-features ul {
+        font-size: 0.9rem;
+    }
+}
+.gold-pass-header h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #f59e0b;
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: 1.2;
+}
+.gold-pass-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+.gold-price-box {
+    margin: 2rem 0;
+}
+
+/* Dash Modal */
+.dash-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dash-modal-content {
+    padding: 3rem;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+.loading-spinner {
+    width: 40px; height: 40px;
+    border: 4px solid rgba(255,42,70,0.2);
+    border-top: 4px solid var(--accent-red);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 2rem;
+}
+
+/* Report Styles */
+.report-wrapper {
+    animation: fadeIn 0.5s ease;
+}
+.report-header {
+    padding: 1.5rem 2rem;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    border-bottom: none;
+}
+.alert-title { font-size: 1.5rem; color: #fff; }
+
+.report-body {
+    padding: 2.5rem;
+    border-radius: 0 0 12px 12px;
+    border-top: none;
+}
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+}
+.metric-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
+}
+.metric-card h4 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+.metric-value { font-size: 2rem; font-weight: 800; color: #fff; }
+.font-red { color: var(--accent-red); }
+
+.dash-divider {
+    border: none;
+    border-top: 1px solid var(--glass-border);
+    margin: 2.5rem 0;
+}
+
+.report-wrapper h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.section-desc { font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+.alert-box { 
+    margin-bottom: 2rem; 
+    background: rgba(0,0,0,0.3);
+    padding: 1rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+.alert-box strong { color: #fff; }
+
+.gottman-list {
+    list-style: none;
+    margin: 0; padding: 0;
+}
+.gottman-list li {
+    background: rgba(0,0,0,0.3);
+    border-left: 3px solid var(--accent-red);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+.gottman-list li strong { color: #fff; display: block; margin-bottom: 0.25rem; font-size: 1.05rem; }
+.gottman-list li code {
+    background: rgba(255,42,70,0.1);
+    color: var(--accent-red);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.conclusion-box {
+    padding: 2rem;
+    margin-top: 3rem;
+}
+.conclusion-box h4 {
+    color: var(--warning-yellow);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.mt-2 { margin-top: 0.5rem; }
+
+/* Coming Soon Overlay */
+.coming-soon {
+    position: relative;
+    pointer-events: none;
+    user-select: none;
+}
+.coming-soon::after {
+    content: "EM BREVE";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--warning-yellow);
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    z-index: 10;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.coming-soon > *:not(.lock-overlay) {
+    filter: blur(4px) grayscale(0.8);
+    opacity: 0.5;
+}
+
+.mt-4 { margin-top: 2rem; }
+.mt-4 { margin-top: 2rem; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Global Mobile Fixes */
+@media (max-width: 768px) {
+    .hide-mobile { 
+        display: none !important; 
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .metric-card {
+        padding: 1rem;
+    }
+    .metric-card h4 {
+        font-size: 0.9rem;
+    }
+    .report-body {
+        padding: 1.5rem;
+    }
+    .report-header {
+        padding: 1.25rem 1rem;
+    }
+    .conclusion-box {
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+    .gottman-list li {
+        padding: 0.85rem;
+    }
+}
+
+/* =========================================================
+   MOMENTOS ANALISADOS — Deep Psychological Analysis Layer
+   ========================================================= */
+
+.moments-section {
+    margin-top: 2rem;
+}
+.moments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+}
+.moments-empty {
+    background: rgba(255,255,255,0.02);
+    border: 1px dashed rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+.moments-empty p {
+    color: #64748b;
+    font-size: 0.92rem;
+    font-style: italic;
+    margin: 0;
+    text-align: center;
+}
+.moment-card {
+    background: rgba(255,255,255,0.018);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+.moment-card:hover {
+    border-color: rgba(59,130,246,0.25);
+}
+.moment-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-wrap: wrap;
+}
+.moment-label-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #3b82f6;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    flex-shrink: 0;
+}
+.moment-theme-tag {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+.moment-quote-block {
+    padding: 1.1rem 1.25rem;
+    background: rgba(0,0,0,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.moment-quote-eyebrow {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+.moment-blockquote {
+    margin: 0 0 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid rgba(59,130,246,0.5);
+    background: rgba(59,130,246,0.05);
+    border-radius: 0 8px 8px 0;
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    font-style: italic;
+    word-break: break-word;
+}
+.moment-meta {
+    font-size: 0.72rem;
+    color: #475569;
+    margin-top: 0.4rem;
+    font-family: 'JetBrains Mono', monospace, 'Courier New';
+}
+.moment-perception-block {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.moment-impact-block {
+    padding: 1.1rem 1.25rem;
+    background: rgba(0,0,0,0.1);
+}
+.moment-block-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.55rem;
+}
+.moment-impact-label {
+    color: rgba(251,191,36,0.7);
+}
+.moment-body-text {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* Emotional Timeline Section */
+.timeline-section {
+    background: rgba(59,130,246,0.04);
+    border: 1px solid rgba(59,130,246,0.12);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+}
+.timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 0.85rem;
+}
+.timeline-body {
+    color: #94a3b8;
+    font-size: 0.91rem;
+    line-height: 1.72;
+    margin: 0;
+}
+
+/* Expanded Verdict */
+.conclusion-box p {
+    line-height: 1.75;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .moment-header { padding: 0.75rem 1rem; }
+    .moment-quote-block,
+    .moment-perception-block,
+    .moment-impact-block { padding: 0.9rem 1rem; }
+    .moment-blockquote { font-size: 0.88rem; padding: 0.65rem 0.85rem; }
+    .moment-body-text { font-size: 0.87rem; }
+    .timeline-section { padding: 1rem 1.1rem; }
+}
+
+/* =========================================================================
+   CREDITS SYSTEM — UI Components
+   ========================================================================= */
+
+/* Credit card widget */
+.credit-card-widget {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(59, 130, 246, 0.06);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 10px;
+    transition: border-color 0.3s, background 0.3s;
+}
+.credit-card-widget.credit-danger {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.25);
+}
+.credit-card-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #3b82f6;
+}
+.credit-card-widget.credit-danger .credit-card-left {
+    color: #f87171;
+}
+.credit-card-title {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+.credit-card-count {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+.credit-card-status {
+    font-size: 0.8rem;
+    color: #f59e0b;
+    text-align: right;
+    max-width: 200px;
+    line-height: 1.4;
+}
+
+/* Upload zone when blocked */
+.zone-blocked {
+    opacity: 0.45;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    border-color: rgba(239, 68, 68, 0.25) !important;
+}
+
+/* Upload blocked message bar */
+.upload-block-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(239, 68, 68, 0.07);
+    border: 1px solid rgba(239, 68, 68, 0.22);
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+.upload-block-icon {
+    color: #f87171;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.upload-block-text {
+    flex: 1;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    min-width: 0;
+}
+
+/* ── Extras toggle button ── */
+.extras-toggle-wrapper {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding: 0 1.5rem;
+}
+.extras-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    color: #fff;
+    font-family: inherit;
+    text-align: left;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.extras-toggle-btn:hover,
+.extras-toggle-btn.active {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: rgba(59, 130, 246, 0.22);
+    box-shadow: 0 4px 24px rgba(59, 130, 246, 0.08);
+}
+.extras-btn-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.extras-btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 10px;
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+.extras-btn-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.15rem;
+}
+.extras-btn-sub {
+    font-size: 0.82rem;
+    color: #64748b;
+}
+.extras-chevron {
+    color: #475569;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+/* ── Extras panel ── */
+.extras-panel {
+    animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Credit purchase cards ── */
+.credit-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    max-width: 560px;
+    margin: 0 auto;
+}
+.credit-purchase-card {
+    position: relative;
+    border-color: rgba(59, 130, 246, 0.2) !important;
+    background: rgba(59, 130, 246, 0.04) !important;
+}
+.credit-purchase-badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #93c5fd;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.credit-purchase-badge.badge-2 {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fcd34d;
+}
+.credit-buy-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px;
+}
+.credit-buy-btn:hover {
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+}
+
+@media (max-width: 600px) {
+    .credit-card-widget { flex-direction: column; gap: 0.5rem; }
+    .credit-card-status { text-align: left; max-width: 100%; }
+    .upload-block-msg { flex-direction: column; gap: 0.65rem; }
+    .upload-block-msg button { width: 100%; }
+    .extras-toggle-btn { padding: 1rem; }
+    .extras-btn-icon { width: 34px; height: 34px; }
+}

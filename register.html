@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detecta A.I - Acesso à Ferramenta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- TikTok Pixel Code Start -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    
+      ttq.load('D73D4F3C77UCBSL4OP3G');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+</head>
+    <style>
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255,42,70,0.15) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem;
+            text-align: center;
+            z-index: 1;
+            background: rgba(10,5,10,0.85);
+            border: 1px solid rgba(255,42,70,0.3);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+        .auth-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: var(--font-body);
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 10px rgba(255,42,70,0.2);
+        }
+        .form-control.input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 8px rgba(239,68,68,0.25) !important;
+        }
+        .form-control.input-ok {
+            border-color: #10b981 !important;
+        }
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            user-select: none;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .eye-icon:hover {
+            color: #3b82f6;
+            transform: scale(1.1);
+        }
+        .eye-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── Inline error / success messages ── */
+        .field-msg {
+            font-size: 0.78rem;
+            margin-top: 0.4rem;
+            min-height: 1rem;
+            transition: opacity 0.2s;
+        }
+        .field-msg.err  { color: #f87171; }
+        .field-msg.ok   { color: #34d399; }
+        .field-msg.hint { color: #64748b; }
+
+        /* ── Password strength bar ── */
+        .strength-wrap {
+            margin-top: 0.55rem;
+        }
+        .strength-bar-bg {
+            height: 4px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .strength-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.35s ease, background 0.35s ease;
+        }
+        .strength-label {
+            font-size: 0.75rem;
+            margin-top: 0.35rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #475569;
+            transition: color 0.3s;
+        }
+
+        /* ── Forgot password / recovery view ── */
+        #recoveryView {
+            display: none;
+        }
+        .recovery-step {
+            display: none;
+        }
+        .recovery-step.active {
+            display: block;
+        }
+        .back-link {
+            font-size: 0.82rem;
+            color: #64748b;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 1.25rem;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+        }
+        .back-link:hover { color: #cbd5e1; }
+        .back-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        .success-box {
+            background: rgba(16,185,129,0.08);
+            border: 1px solid rgba(16,185,129,0.25);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .success-box svg { color: #10b981; width: 40px; height: 40px; margin-bottom: 0.75rem; }
+        .success-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .success-box p  { color: #94a3b8; font-size: 0.88rem; }
+
+        .crypto-note {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .lock-icon {
+            width: 13px;
+            height: 13px;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+        .auth-btn { width: 100%; padding: 1.1rem; margin-top: 1rem; font-size: 1.1rem; }
+        .toggle-mode {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .toggle-mode a {
+            color: var(--accent-red);
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="glass auth-card">
+            <div class="logo" style="margin-bottom: 1.5rem; font-size: 2rem;">Detecta<span class="hl">A.I</span></div>
+
+            <!-- ══════════════════════════════════
+                 MAIN AUTH VIEW (Login / Register)
+            ══════════════════════════════════ -->
+            <div id="authView">
+                <h2 id="formTitle">Criar Conta</h2>
+                <p id="formSubtitle" style="margin-bottom: 2rem; font-size: 0.95rem; color: #94a3b8;">
+                    Sua compra foi aprovada! Crie sua conta para acessar o dashboard de análise.
+                </p>
+
+                <form id="authForm" onsubmit="handleAuth(event)" novalidate>
+
+                    <div class="form-group" id="nameGroup">
+                        <label>Seu Nome Completo</label>
+                        <input type="text" id="userName" class="form-control" placeholder="Ex: Maria Silva">
+                        <div class="field-msg hint" id="nameMsg"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>E-mail Real</label>
+                        <input type="text" id="userEmail" class="form-control" placeholder="seuemail@exemplo.com"
+                               oninput="liveEmailCheck(this)">
+                        <div class="field-msg" id="emailMsg"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 0.5rem;">
+                            <label style="margin:0;">Senha Segura</label>
+                            <button type="button" id="forgotPassLink" onclick="showRecovery()"
+                                style="font-size:0.82rem; color:#94a3b8; cursor:pointer; background:none; border:none; padding:0; font-family:inherit; text-decoration:underline; display:none;">
+                                Esqueci minha senha
+                            </button>
+                        </div>
+                        <div class="password-wrapper">
+                            <input type="password" id="userPass" class="form-control" placeholder="••••••••"
+                                   oninput="liveStrength(this.value, 'mainStrength', 'mainStrengthLabel', 'passMsg')">
+                            <span class="eye-icon" onclick="togglePass('userPass', this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <!-- Strength bar (hidden in login mode) -->
+                        <div class="strength-wrap" id="strengthWrap">
+                            <div class="strength-bar-bg">
+                                <div class="strength-bar-fill" id="mainStrength"></div>
+                            </div>
+                            <div class="strength-label" id="mainStrengthLabel">Digite uma senha</div>
+                        </div>
+                        <div class="field-msg" id="passMsg"></div>
+                    </div>
+
+                    <div class="form-group" id="confirmPassGroup">
+                        <label>Confirmar Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="userPassConfirm" class="form-control" placeholder="••••••••"
+                                   oninput="liveConfirmCheck()">
+                            <span class="eye-icon" onclick="togglePass('userPassConfirm', this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="field-msg" id="confirmMsg"></div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="cta-btn auth-btn pulse-glow">Criar Conta e Acessar</button>
+                </form>
+
+                <div class="toggle-mode">
+                    <span id="toggleText">Já possui uma conta?</span> <a onclick="switchMode()" id="toggleLink">Fazer Login</a>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════
+                 RECOVERY VIEW (Forgot Password)
+            ══════════════════════════════════ -->
+            <div id="recoveryView">
+
+                <!-- Step 1: enter email -->
+                <div class="recovery-step active" id="recStep1">
+                    <button type="button" class="back-link" onclick="hideRecovery()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        Voltar ao login
+                    </button>
+                    <h2>Recuperar Senha</h2>
+                    <p style="margin-bottom:1.75rem; font-size:0.93rem; color:#94a3b8;">
+                        Informe o e-mail da sua conta para redefinir a senha.
+                    </p>
+                    <div class="form-group">
+                        <label>E-mail Cadastrado</label>
+                        <input type="text" id="recEmail" class="form-control" placeholder="seuemail@exemplo.com"
+                               oninput="liveEmailCheck(this, 'recEmailMsg')">
+                        <div class="field-msg" id="recEmailMsg"></div>
+                    </div>
+                    <button type="button" class="cta-btn auth-btn" onclick="recStep1Submit()">Continuar</button>
+                </div>
+
+                <!-- Step 2: new password -->
+                <div class="recovery-step" id="recStep2">
+                    <h2>Nova Senha</h2>
+                    <p style="margin-bottom:1.75rem; font-size:0.93rem; color:#94a3b8;">
+                        Crie uma senha forte para a sua conta.
+                    </p>
+                    <div class="form-group">
+                        <label>Nova Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="recNewPass" class="form-control" placeholder="••••••••"
+                                   oninput="liveStrength(this.value, 'recStrength', 'recStrengthLabel', 'recPassMsg')">
+                            <span class="eye-icon" onclick="togglePass('recNewPass', this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="strength-wrap">
+                            <div class="strength-bar-bg">
+                                <div class="strength-bar-fill" id="recStrength"></div>
+                            </div>
+                            <div class="strength-label" id="recStrengthLabel">Digite uma senha</div>
+                        </div>
+                        <div class="field-msg" id="recPassMsg"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Nova Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="recConfirmPass" class="form-control" placeholder="••••••••"
+                                   oninput="liveRecConfirmCheck()">
+                            <span class="eye-icon" onclick="togglePass('recConfirmPass', this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="field-msg" id="recConfirmMsg"></div>
+                    </div>
+                    <button type="button" class="cta-btn auth-btn" onclick="recStep2Submit()">Redefinir Senha</button>
+                </div>
+
+                <!-- Step 3: success -->
+                <div class="recovery-step" id="recStep3">
+                    <div class="success-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 0.75rem; display:block;">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <h3>Senha alterada com sucesso!</h3>
+                        <p>Sua nova senha foi salva. Agora você pode fazer o login normalmente.</p>
+                    </div>
+                    <button type="button" class="cta-btn auth-btn" style="margin-top:1.25rem;" onclick="hideRecovery()">
+                        Voltar ao Login
+                    </button>
+                </div>
+
+            </div>
+            <!-- /recoveryView -->
+
+            <p class="crypto-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lock-icon">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Sistema 100% Criptografado e Anônimo</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="emojis.js"></script>
+    <script>
+        /* ══════════════════════════════════════════════
+           STATE
+        ══════════════════════════════════════════════ */
+        let isLogin = false;
+
+        /* ══════════════════════════════════════════════
+           EMAIL VALIDATION
+        ══════════════════════════════════════════════ */
+        function isValidEmail(email) {
+            // Requires: localpart @ domain . tld(2+ chars)
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            return re.test(email.trim().toLowerCase());
+        }
+
+        function liveEmailCheck(input, msgId) {
+            msgId = msgId || 'emailMsg';
+            const msg  = document.getElementById(msgId);
+            const val  = input.value.trim();
+            if (!val) {
+                input.classList.remove('input-error', 'input-ok');
+                msg.textContent = '';
+                msg.className = 'field-msg';
+                return;
+            }
+            if (isValidEmail(val)) {
+                input.classList.remove('input-error');
+                input.classList.add('input-ok');
+                msg.textContent = '';
+                msg.className = 'field-msg ok';
+            } else {
+                input.classList.remove('input-ok');
+                input.classList.add('input-error');
+                msg.textContent = 'Digite um e-mail válido.';
+                msg.className = 'field-msg err';
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           PASSWORD STRENGTH
+        ══════════════════════════════════════════════ */
+        const WEAK_PATTERNS = [
+            /^(.)\1+$/,                         // all same chars: 11111111
+            /^(012|123|234|345|456|567|678|789|890|abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz)+$/i,
+            /^(qwerty|asdf|zxcv|senha|pass|password|admin|user|login|test|1234|2345|3456|4567|5678|6789|0987|9876|8765|7654|6543|5432|4321|3210)+$/i,
+        ];
+
+        function isCommonPassword(pass) {
+            const common = ['12345678','123456789','1234567890','senha123','senha1234','abcdef12',
+                'qwerty123','password1','iloveyou','abc12345','monkey123','dragon123',
+                'master123','letmein1','123123123','11111111','00000000','99999999'];
+            return common.includes(pass.toLowerCase()) || WEAK_PATTERNS.some(r => r.test(pass));
+        }
+
+        function calcStrength(pass) {
+            if (!pass) return 0;
+            let score = 0;
+            if (pass.length >= 8)  score++;
+            if (pass.length >= 12) score++;
+            if (/[A-Z]/.test(pass)) score++;
+            if (/[a-z]/.test(pass)) score++;
+            if (/[0-9]/.test(pass)) score++;
+            if (/[^A-Za-z0-9]/.test(pass)) score++;
+            if (isCommonPassword(pass)) score = Math.min(score, 1);
+            // 0 = empty, 1 = ruim, 2 = razoável, 3 = boa, 4 = ótima
+            if (score <= 1) return 1;
+            if (score <= 2) return 2;
+            if (score <= 4) return 3;
+            return 4;
+        }
+
+        const STRENGTH_CONFIG = {
+            0: { pct: '0%',    color: 'transparent',  label: 'Digite uma senha',   cls: '' },
+            1: { pct: '25%',   color: '#ef4444',       label: 'Senha ruim',         cls: 'err' },
+            2: { pct: '50%',   color: '#f97316',       label: 'Senha razoável',     cls: 'err' },
+            3: { pct: '75%',   color: '#3b82f6',       label: 'Senha boa',          cls: 'ok' },
+            4: { pct: '100%',  color: '#10b981',       label: 'Senha ótima',        cls: 'ok' },
+        };
+
+        function liveStrength(val, barId, labelId, msgId) {
+            const level  = calcStrength(val);
+            const cfg    = STRENGTH_CONFIG[level];
+            const bar    = document.getElementById(barId);
+            const label  = document.getElementById(labelId);
+            const msg    = document.getElementById(msgId);
+
+            bar.style.width      = cfg.pct;
+            bar.style.background = cfg.color;
+            label.textContent    = cfg.label;
+            label.style.color    = cfg.color || '#475569';
+
+            if (val && level <= 2) {
+                msg.textContent  = 'Use uma senha mais forte.';
+                msg.className    = 'field-msg err';
+            } else {
+                msg.textContent  = '';
+                msg.className    = 'field-msg';
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           LIVE CONFIRM CHECK (register)
+        ══════════════════════════════════════════════ */
+        function liveConfirmCheck() {
+            const pass    = document.getElementById('userPass').value;
+            const confirm = document.getElementById('userPassConfirm').value;
+            const msg     = document.getElementById('confirmMsg');
+            const input   = document.getElementById('userPassConfirm');
+            if (!confirm) {
+                input.classList.remove('input-error', 'input-ok');
+                msg.textContent = ''; msg.className = 'field-msg';
+                return;
+            }
+            if (pass === confirm) {
+                input.classList.remove('input-error'); input.classList.add('input-ok');
+                msg.textContent = 'Senhas conferem.'; msg.className = 'field-msg ok';
+            } else {
+                input.classList.remove('input-ok'); input.classList.add('input-error');
+                msg.textContent = 'As senhas não coincidem.'; msg.className = 'field-msg err';
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           TOGGLE PASSWORD VISIBILITY
+        ══════════════════════════════════════════════ */
+        function togglePass(inputId, el) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                el.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>`;
+            } else {
+                input.type = 'password';
+                el.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>`;
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           SWITCH LOGIN / REGISTER MODE
+        ══════════════════════════════════════════════ */
+        function switchMode() {
+            isLogin = !isLogin;
+            const nameGroup        = document.getElementById('nameGroup');
+            const confirmPassGroup = document.getElementById('confirmPassGroup');
+            const strengthWrap     = document.getElementById('strengthWrap');
+            const formTitle        = document.getElementById('formTitle');
+            const formSubtitle     = document.getElementById('formSubtitle');
+            const submitBtn        = document.getElementById('submitBtn');
+            const toggleText       = document.getElementById('toggleText');
+            const toggleLink       = document.getElementById('toggleLink');
+            const forgotPass       = document.getElementById('forgotPassLink');
+
+            // clear messages
+            ['emailMsg','passMsg','confirmMsg','nameMsg'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.textContent = ''; el.className = 'field-msg'; }
+            });
+            ['userEmail','userPass','userPassConfirm'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('input-error','input-ok');
+            });
+            // reset strength bar
+            document.getElementById('mainStrength').style.width = '0%';
+            document.getElementById('mainStrengthLabel').textContent = 'Digite uma senha';
+            document.getElementById('mainStrengthLabel').style.color = '#475569';
+
+            if (isLogin) {
+                nameGroup.style.display        = 'none';
+                confirmPassGroup.style.display = 'none';
+                strengthWrap.style.display     = 'none';
+                if (forgotPass) forgotPass.style.display = 'block';
+
+                formTitle.textContent     = 'Acessar Dashboard';
+                formSubtitle.textContent  = 'Bem-vindo de volta! Faça login para continuar analisando.';
+                submitBtn.textContent     = 'Entrar no Sistema';
+                toggleText.textContent    = 'Ainda não tem conta?';
+                toggleLink.textContent    = 'Criar Conta';
+            } else {
+                nameGroup.style.display        = 'block';
+                confirmPassGroup.style.display = 'block';
+                strengthWrap.style.display     = 'block';
+                if (forgotPass) forgotPass.style.display = 'none';
+
+                formTitle.textContent     = 'Criar Conta';
+                formSubtitle.textContent  = 'Sua compra foi aprovada! Crie sua conta para acessar o dashboard de análise.';
+                submitBtn.textContent     = 'Criar Conta e Acessar';
+                toggleText.textContent    = 'Já possui uma conta?';
+                toggleLink.textContent    = 'Fazer Login';
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           HANDLE AUTH (register + login)
+        ══════════════════════════════════════════════ */
+        function handleAuth(e) {
+            e.preventDefault();
+
+            const emailRaw = document.getElementById('userEmail').value;
+            const email    = emailRaw.trim().toLowerCase();
+            const pass     = document.getElementById('userPass').value;
+            const emailMsg = document.getElementById('emailMsg');
+            const passMsg  = document.getElementById('passMsg');
+
+            // ── Validate email ──
+            if (!isValidEmail(email)) {
+                document.getElementById('userEmail').classList.add('input-error');
+                emailMsg.textContent = 'Digite um e-mail válido.';
+                emailMsg.className   = 'field-msg err';
+                document.getElementById('userEmail').focus();
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('detecta_registered_users') || '{}');
+
+            if (!isLogin) {
+                // ── REGISTER MODE ──
+                const confPass = document.getElementById('userPassConfirm').value;
+                const name     = document.getElementById('userName').value.trim();
+
+                if (name.length < 2) {
+                    document.getElementById('nameMsg').textContent = 'Por favor, informe um nome válido.';
+                    document.getElementById('nameMsg').className   = 'field-msg err';
+                    document.getElementById('userName').focus();
+                    return;
+                }
+                // Password strength check
+                const strength = calcStrength(pass);
+                if (strength <= 2) {
+                    passMsg.textContent = 'Use uma senha mais forte.';
+                    passMsg.className   = 'field-msg err';
+                    document.getElementById('userPass').focus();
+                    return;
+                }
+                // Confirm password
+                if (pass !== confPass) {
+                    document.getElementById('confirmMsg').textContent = 'As senhas não coincidem.';
+                    document.getElementById('confirmMsg').className   = 'field-msg err';
+                    document.getElementById('userPassConfirm').classList.add('input-error');
+                    document.getElementById('userPassConfirm').focus();
+                    return;
+                }
+                // Duplicate email
+                if (users[email]) {
+                    emailMsg.textContent = 'Este e-mail já está cadastrado. Faça login.';
+                    emailMsg.className   = 'field-msg err';
+                    document.getElementById('userEmail').classList.add('input-error');
+                    return;
+                }
+
+                // Save user
+                users[email] = { name, pass, purchases: {}, last_used: 0 };
+                localStorage.setItem('detecta_registered_users', JSON.stringify(users));
+                localStorage.setItem('detecta_userName', name);
+                localStorage.setItem('detecta_active_email', email);
+
+            } else {
+                // ── LOGIN MODE ──
+                if (!users[email]) {
+                    emailMsg.textContent = 'Nenhuma conta encontrada com este e-mail.';
+                    emailMsg.className   = 'field-msg err';
+                    document.getElementById('userEmail').classList.add('input-error');
+                    return;
+                }
+                if (users[email].pass !== pass) {
+                    passMsg.textContent = 'Senha incorreta. Tente novamente.';
+                    passMsg.className   = 'field-msg err';
+                    document.getElementById('userPass').classList.add('input-error');
+                    return;
+                }
+
+                localStorage.setItem('detecta_userName', users[email].name);
+                localStorage.setItem('detecta_active_email', email);
+            }
+
+            localStorage.setItem('detecta_auth', 'true');
+            window.location.href = 'dashboard.html';
+        }
+
+        /* ══════════════════════════════════════════════
+           RECOVERY FLOW
+        ══════════════════════════════════════════════ */
+        function showRecovery() {
+            document.getElementById('authView').style.display     = 'none';
+            document.getElementById('recoveryView').style.display = 'block';
+            setRecStep(1);
+        }
+
+        function hideRecovery() {
+            document.getElementById('recoveryView').style.display = 'none';
+            document.getElementById('authView').style.display     = 'block';
+            // ensure login mode is on
+            if (!isLogin) switchMode();
+        }
+
+        function setRecStep(n) {
+            document.querySelectorAll('.recovery-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('recStep' + n).classList.add('active');
+        }
+
+        function recStep1Submit() {
+            const emailRaw = document.getElementById('recEmail').value;
+            const email    = emailRaw.trim().toLowerCase();
+            const msg      = document.getElementById('recEmailMsg');
+            const input    = document.getElementById('recEmail');
+
+            if (!isValidEmail(email)) {
+                input.classList.add('input-error');
+                msg.textContent = 'Digite um e-mail válido.';
+                msg.className   = 'field-msg err';
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('detecta_registered_users') || '{}');
+            if (!users[email]) {
+                input.classList.add('input-error');
+                msg.textContent = 'Nenhuma conta encontrada com este e-mail.';
+                msg.className   = 'field-msg err';
+                return;
+            }
+
+            // Store for step 2
+            window._recEmail = email;
+            // clear step 2 fields
+            ['recNewPass','recConfirmPass'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.value = ''; el.classList.remove('input-error','input-ok'); }
+            });
+            ['recPassMsg','recConfirmMsg'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) { el.textContent = ''; el.className = 'field-msg'; }
+            });
+            document.getElementById('recStrength').style.width = '0%';
+            document.getElementById('recStrengthLabel').textContent = 'Digite uma senha';
+            document.getElementById('recStrengthLabel').style.color = '#475569';
+
+            setRecStep(2);
+        }
+
+        function liveRecConfirmCheck() {
+            const pass    = document.getElementById('recNewPass').value;
+            const confirm = document.getElementById('recConfirmPass').value;
+            const msg     = document.getElementById('recConfirmMsg');
+            const input   = document.getElementById('recConfirmPass');
+            if (!confirm) {
+                input.classList.remove('input-error','input-ok');
+                msg.textContent = ''; msg.className = 'field-msg';
+                return;
+            }
+            if (pass === confirm) {
+                input.classList.remove('input-error'); input.classList.add('input-ok');
+                msg.textContent = 'Senhas conferem.'; msg.className = 'field-msg ok';
+            } else {
+                input.classList.remove('input-ok'); input.classList.add('input-error');
+                msg.textContent = 'As senhas não coincidem.'; msg.className = 'field-msg err';
+            }
+        }
+
+        function recStep2Submit() {
+            const newPass = document.getElementById('recNewPass').value;
+            const confirm = document.getElementById('recConfirmPass').value;
+            const passMsg = document.getElementById('recPassMsg');
+            const confMsg = document.getElementById('recConfirmMsg');
+
+            const strength = calcStrength(newPass);
+            if (strength <= 2) {
+                passMsg.textContent = 'Use uma senha mais forte.';
+                passMsg.className   = 'field-msg err';
+                document.getElementById('recNewPass').focus();
+                return;
+            }
+            if (newPass !== confirm) {
+                confMsg.textContent = 'As senhas não coincidem.';
+                confMsg.className   = 'field-msg err';
+                document.getElementById('recConfirmPass').classList.add('input-error');
+                return;
+            }
+
+            // Save
+            const users = JSON.parse(localStorage.getItem('detecta_registered_users') || '{}');
+            if (users[window._recEmail]) {
+                users[window._recEmail].pass = newPass;
+                localStorage.setItem('detecta_registered_users', JSON.stringify(users));
+            }
+
+            setRecStep(3);
+        }
+
+        /* ══════════════════════════════════════════════
+           INIT
+        ══════════════════════════════════════════════ */
+        window.addEventListener('DOMContentLoaded', () => {
+            const storedName = localStorage.getItem('detecta_userName');
+            if (storedName) {
+                const nameEl = document.getElementById('userName');
+                if (nameEl) nameEl.value = storedName;
+            }
+        });
+    </script>
+</body>
+</html>
