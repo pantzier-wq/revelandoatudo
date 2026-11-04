@@ -1,0 +1,6 @@
+/sacana/assets/perf-v1/*
+  Cache-Control: public, max-age=31536000, immutable
+/sacana/interface-perf-v1.js
+  Cache-Control: public, max-age=31536000, immutable
+/sacana/tracking-perf-v1.js
+  Cache-Control: public, max-age=31536000, immutable
