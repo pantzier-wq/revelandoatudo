@@ -232,6 +232,14 @@ h1 em {
 }
 .offer-name { font-weight: 800; }
 .offer-note { color: var(--muted); font-size: .78rem; margin-top: 2px; }
+.price-values { flex-shrink: 0; text-align: right; }
+.price-before {
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: .86rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
 .price {
   color: #fff9f7;
   font-size: clamp(1.96rem, 4.3vw, 3.45rem);
