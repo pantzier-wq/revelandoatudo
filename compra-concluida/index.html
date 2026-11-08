@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#100b0e">
+  <title>Obrigado pela tua compra | Sacana</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0c090b;
+      color: #fff6f3;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(ellipse at 50% 13%, #2b131d, transparent 41rem);
+      line-height: 1.55;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      min-height: 64px;
+      padding-inline: max(20px, calc((100% - 1120px) / 2));
+      border-bottom: 1px solid #392229;
+      background: #100b0e;
+    }
+    .wordmark {
+      font-size: 1.45rem;
+      font-style: italic;
+      font-weight: 900;
+      letter-spacing: -.075em;
+      line-height: 1;
+    }
+    .wordmark span, footer b { color: #ff505f; }
+    main {
+      width: min(640px, calc(100% - 32px));
+      margin: clamp(28px, 7vw, 84px) auto 0;
+      padding: clamp(20px, 6vw, 46px);
+      border: 1px solid #62313d;
+      border-radius: 20px;
+      background: radial-gradient(ellipse at 50% 0, #381724, #181116 56%);
+      box-shadow: 0 24px 70px #070406a0;
+      text-align: center;
+    }
+    .mail-icon {
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 18px;
+      border: 1px solid #9b4e60;
+      border-radius: 17px;
+      background: #482130;
+      color: #ffd3d8;
+    }
+    h1 {
+      max-width: 12ch;
+      margin: 0 auto;
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -.06em;
+      line-height: 1;
+      text-wrap: balance;
+    }
+    h1 em { color: #ff6877; }
+    p { margin: 0; }
+    .lead { margin-top: 18px; font-size: clamp(1.2rem, 4.5vw, 1.5rem); font-weight: 800; }
+    .intro {
+      max-width: 48ch;
+      margin: 7px auto 0;
+      color: #d7c8cb;
+      font-size: 1rem;
+    }
+    .next {
+      display: grid;
+      gap: 12px;
+      margin: 21px 0 17px;
+      padding: 16px;
+      border: 1px solid #58313c;
+      border-radius: 10px;
+      background: #1d1319;
+      color: #d7c8cb;
+      text-align: left;
+      font-size: .95rem;
+    }
+    .next strong { color: #fff6f3; }
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #29df73;
+      color: #05190d;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .cta:hover { background: #72f6a3; }
+    .cta:focus-visible { outline: 2px solid #fff6f3; outline-offset: 4px; }
+    footer {
+      padding: 24px 16px 28px;
+      color: #c9b9bc;
+      font-size: .8rem;
+      text-align: center;
+    }
+    @media (max-width: 440px) {
+      .topbar { min-height: 56px; }
+      main { border-radius: 14px; }
+      .mail-icon { width: 52px; height: 52px; margin-bottom: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar"><span class="wordmark">SACANA<span>.</span></span></header>
+  <main aria-labelledby="titulo">
+    <span class="mail-icon" aria-hidden="true">
+      <svg width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="m4 7 8 6 8-6"/>
+      </svg>
+    </span>
+    <h1 id="titulo">Obrigado <em>pela tua compra.</em></h1>
+    <p class="lead">Confere o teu e-mail.</p>
+    <p class="intro">Assim que o pagamento for confirmado, a Hotmart envia a confirmação e as instruções de acesso para o endereço de e-mail que usaste na compra.</p>
+    <div class="next">
+      <p><strong>Procura a mensagem da Hotmart.</strong> Abre-a e segue as instruções para aceder aos produtos que compraste.</p>
+      <p><strong>A mensagem ainda não apareceu?</strong> Confere também as pastas de Spam e Promoções.</p>
+    </div>
+    <a class="cta" href="https://consumer.hotmart.com/">Ver as minhas compras na Hotmart <span aria-hidden="true">↗</span></a>
+  </main>
+  <footer>SACANA <b>·</b> revelandoatudo</footer>
+</body>
+</html>
